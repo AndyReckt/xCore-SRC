@@ -14,7 +14,6 @@ import net.minecraft.util.org.apache.commons.lang3.math.NumberUtils;
 public class EnchantCommand {
 
     public EnchantCommand() {
-        final xCore plugin;
     }
 
     @Command(name = "enchant", permission = "core.command.enchant", inGameOnly = true)
@@ -30,10 +29,6 @@ public class EnchantCommand {
                 }
 
                 if (args.length == 3) {
-                    if (player == null) {
-                        player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("enchant-command.not-online")));
-                        return true;
-                    }
 
                     Enchantment enchantment = Enchantment.getByName(args[1].toUpperCase());
 
@@ -71,8 +66,8 @@ public class EnchantCommand {
                         return true;
                     }
 
-                    ((Player) player).getItemInHand().addUnsafeEnchantment(enchantment, level);
-                    player.sendMessage((ChatColor.WHITE + "Enchanted %player% with %enchantment% %level%.").replace("%player%", ((Player) player).getDisplayName())
+                    player.getItemInHand().addUnsafeEnchantment(enchantment, level);
+                    player.sendMessage((ChatColor.WHITE + "Enchanted %player% with %enchantment% %level%.").replace("%player%", player.getDisplayName())
                             .replace("%enchantment%", enchantment.getName()).replace("%level%", "" + level));
                 }
             }
