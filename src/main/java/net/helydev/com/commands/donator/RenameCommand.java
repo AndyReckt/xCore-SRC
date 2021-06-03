@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -56,9 +57,12 @@ public class RenameCommand {
             final String lower = newName.toLowerCase();
             for (final String word : DISALLOWED) {
                 if (lower.contains(word)) {
-                    sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("rename.not-allowed")));
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "warn -s " + sender.getName() + " Misuse of /rename");
-                    return true;
+                    if (xCore.getPlugin().getConfig().getBoolean("rename-command.play-sound")) {
+                        sender.playSound(sender.getLocation(), Sound.valueOf(xCore.getPlugin().getConfig().getString("rename-command.sound-name").toUpperCase()), 1.0F, 1.0F);
+                        sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("rename.not-allowed")));
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), xCore.getPlugin().getConfig().getString("rename-command.command"));
+                        return true;
+                    }
                 }
             }
         }
