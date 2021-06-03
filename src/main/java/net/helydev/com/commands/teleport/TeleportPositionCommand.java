@@ -34,7 +34,7 @@ public class TeleportPositionCommand {
             final int xcoordinate = Integer.parseInt(args[0]);
             final int ycoordinate = Integer.parseInt(args[1]);
             final int zcoordinate = Integer.parseInt(args[2]);
-            final Location loc = new Location(player.getWorld(), (double)xcoordinate, (double)ycoordinate, (double)zcoordinate);
+            final Location loc = new Location(player.getWorld(), xcoordinate, ycoordinate, zcoordinate);
             if (xcoordinate > 30000 || ycoordinate > 30000 || zcoordinate > 30000 || xcoordinate < -30000 || ycoordinate < -30000 || zcoordinate < -30000) {
                 player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("tppos.max")));
                 return;
@@ -45,16 +45,6 @@ public class TeleportPositionCommand {
                 player.playSound(player.getLocation(), Sound.valueOf(xCore.getPlugin().getMessageconfig().getConfiguration().getString("tppos.sound-name").toUpperCase()), 1.0F, 1.0F);
             }
         }
-    }
-
-    public static boolean isStringInteger(final String string) {
-        try {
-            Integer.parseInt(string);
-        }
-        catch (NumberFormatException e) {
-            return false;
-        }
-        return true;
     }
 }
 

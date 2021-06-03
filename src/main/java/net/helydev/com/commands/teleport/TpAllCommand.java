@@ -16,7 +16,7 @@ public class TpAllCommand {
         Player sender = command.getPlayer();
 
         @Deprecated
-        Player player = (Player) sender;
+        Player player = sender;
         Player[] arrayOfPlayer;
         int j = (arrayOfPlayer = Bukkit.getOnlinePlayers()).length;
         for (int i = 0; i < j; i++) {
