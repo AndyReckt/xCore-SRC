@@ -15,17 +15,14 @@ public class ServerStatusCommand {
 
     public boolean sendMessage(CommandArgs command) {
         Player sender = command.getPlayer();
-        String[] args = command.getArgs();
-        if (!sender.hasPermission("core.command.serverstatus")) {
-            return true;
-        } else {
+        if (sender.hasPermission("core.command.serverstatus")) {
             long startTime = ManagementFactory.getRuntimeMXBean().getStartTime();
             String upTime = DurationFormatUtils.formatDurationWords(System.currentTimeMillis() - startTime, true, true);
             final DecimalFormat TPS_FORMAT = new DecimalFormat("00.0");
             for (String msg : xCore.getPlugin().getMessageconfig().getConfiguration().getStringList("server-status.status")) {
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', msg).replace("%tps%", TPS_FORMAT.format(Bukkit.spigot().getTPS()[0])).replace("%uptime%", upTime).replace("%free_memory%", String.valueOf(Runtime.getRuntime().freeMemory())));
             }
-            return true;
         }
+        return true;
     }
 }

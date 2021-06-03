@@ -16,7 +16,6 @@ public class PokeCommand {
 
         if (args.length < 1) {
             sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("poke.usage")));
-            return true;
         } else {
             Player target = Bukkit.getPlayer(args[0]);
             if (target == null) {
@@ -26,8 +25,8 @@ public class PokeCommand {
             target.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("poke.poked")));
             target.playSound(target.getLocation(),
                     Sound.valueOf(xCore.getPlugin().getMessageconfig().getConfiguration().getString("poke.sound")), 1F, 1F);
-            return true;
         }
+        return true;
     }
 }
 

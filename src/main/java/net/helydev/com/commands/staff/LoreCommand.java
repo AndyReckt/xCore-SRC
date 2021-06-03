@@ -36,7 +36,7 @@ public class LoreCommand {
         ItemMeta meta = stack.getItemMeta();
 
         String text = ChatColor.translateAlternateColorCodes('&', StringUtils.join(args, ' ', 0, args.length));
-        List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<String>(2);
+        List<String> lore = meta.hasLore() ? meta.getLore() : new ArrayList<>(2);
 
         lore.add(text);
         meta.setLore(lore);
