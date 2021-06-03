@@ -16,14 +16,12 @@ public class ClearInventoryCommand {
         String[] args = command.getArgs();
 
         if (args.length < 1) {
-            int total = this.getTotalItems(player);
 
             player.getInventory().clear();
             player.getInventory().setArmorContents(null);
             player.updateInventory();
 
             player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("clear.cleared")));
-            return;
         } else if (player.hasPermission("core.command.clear.others")) {
             Player target = Bukkit.getPlayer(args[0]);
 

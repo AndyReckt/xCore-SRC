@@ -53,16 +53,19 @@ public class GamemodeCommand {
         }
 
         if (target == null) {
+            assert player != null;
             player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("gamemode.not-online")));
             return;
         }
 
         if (target.getGameMode() == mode) {
+            assert mode != null;
             player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("gamemode.is-already").replace("%target%", target.getName()).replace("%mode%", mode.name())));
             return;
         }
 
         target.setGameMode(mode);
+        assert mode != null;
         player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("gamemode.other-changed").replace("%mode", mode.name())));
     }
 
@@ -79,10 +82,6 @@ public class GamemodeCommand {
 
         if (id.equalsIgnoreCase("gma") || id.contains("advent") || id.equalsIgnoreCase("2") || id.equalsIgnoreCase("a")) {
             return GameMode.ADVENTURE;
-        }
-
-        if (id.equalsIgnoreCase("gmt") || id.contains("toggle") || id.contains("cycle") || id.equalsIgnoreCase("t")) {
-            return null;
         }
 
         return null;

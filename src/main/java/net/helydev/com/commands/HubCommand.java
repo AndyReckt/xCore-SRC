@@ -12,23 +12,20 @@ import java.io.IOException;
 
 public class HubCommand {
 
-    @Command(name = "hub", permission = "", inGameOnly = true)
+    @Command(name = "hub", inGameOnly = true)
 
     public void conectedHub(CommandArgs command) {
         Player player = command.getPlayer();
         String[] args = command.getArgs();
         if (args.length < 1) {
-        teleport(player, (xCore.getPlugin().getConfig().getString("hub-command.hub-server")));
+        teleport(player, xCore.getPlugin().getConfig().getString("hub-command.hub-server"));
 
         player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("hub.sent")));
-        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(xCore.getPlugin(), new Runnable(){
-            public void run(){
-                if(player.isOnline()){
-                    player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("hub.error")));
-                }
+        Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(xCore.getPlugin(), () -> {
+            if(player.isOnline()){
+                player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("hub.error")));
             }
         }, 20 * 5);
-        return;
         }
     }
 
@@ -40,7 +37,7 @@ public class HubCommand {
             out.writeUTF("Connect");
             out.writeUTF(input);
         }
-        catch (IOException localIOException) {}
+        catch (IOException ignored) {}
         pl.sendPluginMessage(xCore.getPlugin(), "BungeeCord", b.toByteArray());
     }
 }

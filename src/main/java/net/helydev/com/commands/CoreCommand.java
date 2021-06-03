@@ -9,7 +9,7 @@ import org.bukkit.event.Listener;
 
 public class CoreCommand implements Listener {
 
-    @Command(name = "core", permission = "", inGameOnly = false, aliases = {"dev", "andrew"})
+    @Command(name = "core", aliases = {"dev", "andrew"})
     public void sendMessage(CommandArgs command) {
         CommandSender player = command.getSender();
         String[] args = command.getArgs();
