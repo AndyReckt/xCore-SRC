@@ -1,0 +1,318 @@
+##########################################################
+#                   ORIGINAL AUTHOR                      #
+#                     LEANDROSSJ                         #
+#                                                        #
+#                  SKIDDED BY ANDREW                     #
+#                 MAKER OF VERSION V2                    #
+#                                                        #
+#                 discord.helydev.com                    #
+##########################################################
+
+basic:
+  no-permission: "&cNo Permissions!"
+  only-players: "&cSorry, only players can execute this command."
+
+online-donators:
+  announcement:
+    - ""
+    - "&bOnline Donators: &f%donators%"
+    - "&7If you want to be featured on this list purchase a rank."
+    - ""
+
+
+listeners:
+  break-spawner-nether: "&cYou cannot break spawners in the &c&lNether&c."
+  place-spawner-nether: "&cYou cannot place spawners in the &c&lNether&c."
+  invalid-syntax: "&cYou have used a invalid Syntax. Your actions have just been logged in a database."
+
+joinmessage:
+  message:
+      - "&7&m--------------------------------------------------"
+      - "&eWelcome to &6&lServerName&e Map 1"
+      - "&7 * &eFaction Size: &f30 Man & No Allies"
+      - "&7 * &eMapKit: &fProt 2 & Sharp 2"
+      - "&7 * &eTeamSpeak: &fts.xcore.com"
+      - "&7 * &eDiscord: &fdiscord.gg/xcore"
+      - "&7 * &eStore: &fstore.xcore.com"
+      - "&7&m--------------------------------------------------"
+
+help:
+  help-command:
+    - "&7&m--*------------------------------*--"
+    - "&b&lServerName &7&l| &fKitMap"
+    - "&7&m--*------------------------------*--"
+    - "&7Thanks for joining us on our server."
+    - "&7In this message, you can find helpful"
+    - "&7information that regards to our server."
+    - "&7&m--*------------------------------*--"
+    - "&b&lLinks&7:"
+    - "&aWebsite&8 - &fwww.xcore.com"
+    - "&aBuycraft&8 - &fstore.xcore.com"
+    - "&aTeamspeak&8 - &fts.xcore.com"
+    - "&7&m--*------------------------------*--"
+
+list-command:
+  message:
+    - "&7Their is currently &d&l%players%/%players-max% &7connect to this server."
+
+spawn:
+  self: "&aYou have been teleported to spawn."
+  other: "&aYou have just teleported &a&n%target%&a to &a&lSpawn&a."
+
+  setspawn:
+    set: "&a&l(!) &aYou have set the &a&lWorld Spawn &ato your location."
+
+core-command:
+  reloaded: "&cYou have just reloaded &6&lxCore &cconfiguration files!"
+
+enchant-command:
+  usage: "&cUsage: /enchant <enchantment> <level>"
+  invalid: "&cThat is a invalid enchant."
+  invalid-message: "&cSorry, &a%args% &cis a invalid enchant."
+  success: "&cYou have enchanted &a%player%&cs item with &a%enchantment%&c."
+  not-online: "&cThat player could not be found."
+
+skull:
+  usage: "&cUsage: /skull <player>"
+  given: "&aYou have been given a skull of &a&l%player%&a."
+  click: "&aThis is the skull of &a&l%player%&a!"
+
+rename:
+  usage: "&cCorrect usage: /rename <new name>"
+  not-holding: "&cYou must be holding a item to rename."
+  no-name: "&cThis item already does not have a name."
+  already-named: "&cSorry, this item already has this name."
+  not-allowed: "&cYou have a &4blacklisted &cname in your item. You have recieved a warning!"
+  removed-name: "&7You have removed the custom name on your item! (Old name: &a%name%&7)"
+  renamed: "&aYou have renamed your item."
+  # DUPLICATION FIXES #
+  cannot-rename-tripwirehook: "&cYou cannot rename this item."
+
+tppos:
+  sound: true # Do you want to enable sound when you teleport?
+  sound-name: "CLICK" # The sound you want to be played.
+
+  usage: "&cCorrect usage: /tppos <x> <y> <z>"
+  only-integer: "&cYou can only use integers."
+  max: "&cYou cannot teleport past 30k blocks."
+  teleported: ""
+
+server-status:
+  status:
+    - ""
+    - "&b&lServer Status"
+    - "&7Check below for your servers statistics."
+    - ""
+    - "&aTPS: &f%tps%"
+    - "&aUptime: &f%uptime%"
+    - "&aFree Memory: &f%free_memory%"
+    - ""
+
+playtime:
+  self: "&7You have been playing for &6&l%time% &7this map!"
+  other: "&a%target% &7has been playing for &6&l%time% &7this map!"
+  offline: "&cTheir is no players online matching that name."
+
+poke:
+  usage: "&cCorrect usage: /poke <player>"
+  not-found:  "&cThat player could not be found!"
+  poked: "&aYou have been poked by a staff member."
+  sound: "ENDERDRAGON_DEATH"
+
+hider:
+  help:
+    - ""
+    - "&b&lPlayer Hider"
+    - "&7This will disable all player visibility."
+    - "&7This could help with FPS lag."
+    - ""
+    - "&c/hider on &7- &fHide all online players."
+    - "&c/hider off &7- &fShow all online players."
+    - ""
+  enabled-broadcast: "&a%player% &7has enabled all player visibility."
+  disabled-broadcast: "&c%player% &7has disabled all player visibility."
+
+clear:
+  cleared: "&cYour inventory has been cleared."
+  cleared-other: "&cYou have just cleared &a%target% &cinventory!"
+  cleared-other-target: "&7Your inventory has just been cleared by &a%executor%&7!"
+
+kill:
+  already-dead: "&a%player% &cis already dead."
+  cannot-kill: "&cYou cannot kill &a%player%&c."
+  suicide: "&cYou have killed yourself!"
+
+craft:
+  opened: "&aYou have opened your &a&nWork Bench&a."
+
+lore:
+  usage: "&cUsage: /lore <lore>"
+  hold-item: "&cYou must be holding a item in your hand."
+  added: "&aYou have added a new Lore to your item!"
+
+feed:
+  fed: "&6Your &6&lHunger Bar &6has been replenished."
+  already-has: "&6%target &7already has a full &6Hunger Bar&7."
+  cannot-give-self: "&cYou cannot give your self hunger using this command. You can use &6/feed&c."
+  target-fed: "&6Your hunger has just been refilled by &6&l%executor%&6."
+
+copy-inventory:
+  
+
+enderchest:
+  open-self: "&cYou cannot open your own enderchest."
+  opened: "&cYou are now viewing your private vault."
+  opened-player: "&7You have opened &a%target%&7's &cEnder Chest&7!"
+
+gamemode:
+  usage: "&cUsage: /gamemode <mode> <player>"
+  not-online: "&cThat player is not currently online."
+  is-already: "&cSorry, &a%target% &cis already in &a&n%mode%&c."
+  other-changed: "&aYour gamemode has been updated." # Available Variables: %mode%
+
+hub:
+  sent: "&aYou have just been connected to the &6&lHub&a!"
+  error: "&cTheir was a problem while connecting you to the &6&lHub&c."
+
+invsee:
+  usage: "&cUsage: /invsee <player>"
+  open-self: "&cYou can't open your own inventory."
+  opened: "&cYou have opened &6%target%&c's inventory."
+
+killstreaks:
+  list:
+    - "&7&l&m---------------------------"
+    - "&b&lKillstreaks"
+    - "&7You must get consecutive amount of kills to"
+    - "&7recieve these rewards."
+    - ""
+    - "&a* &f2 Kills &7- &6Reward Keys"
+    - "&7&l&m---------------------------"
+
+time-commands:
+  day: "&aYou have changed your time to &a&nDay&a."
+  night: "&cYou have changed your time to &c&nNight&c."
+
+teleport:
+  sound: true # Do you want to enable sound when you teleport?
+  sound-name: "CLICK" # The sound you want to be played.
+
+  usage: "&cUsage: /teleport <player>"
+  teleported: "&aYou have been teleported to &a&l%target%&a."
+
+teleport-here:
+  sound: true # Do you want to enable sound when you teleport?
+  sound-name: "CLICK" # The sound you want to be played.
+
+  usage: "&cUsage: /teleporthere <player>"
+  teleported: "&cYou have teleported &a%target% &cto you."
+
+bottle:
+  botteled: "&aYou have bottled all your XP!"
+  no-xp: "&cSorry, you have no &c&nXP Levels&c to bottle."
+
+top:
+  sound: true # Do you want to enable sound when you teleport?
+  sound-name: "CLICK" # The sound you want to be played.
+
+  highest-location: "&cYou are already at the highest location."
+  used: "&aYou have been teleported to the highest location above you."
+
+tp-all:
+  teleported: "&cAll players have been teleported to your location."
+  target-message: "&cYou have been teleported to &c&l%player%&c."
+
+world:
+  usage: "&cUsage: /world <world>"
+  invalid: "&cThat is a invalid world name."
+  already-in: "&cYou are already in that world."
+  teleported: "&cYou have been teleported to &c&l%world%&c."
+
+refill-sign:
+  used: "&cYou are now viewing the &c&lPotion Refill &cmenu."
+
+trash-sign:
+  used: "&4You have opened up your &4&lDisposal&4."
+
+disguise:
+  usage: "&cUsage: /disguise <player> <name>"
+
+chat-clear:
+  cleared: "&6Global-Chat &7has just been cleared by &a%executor%&7."
+
+ping:
+  usage: "&cUsage: /ping <player>"
+  other-ping: "&a%player%&6's ping is &a&l%ping%ms&6!"
+
+bcraw:
+  usage: "&cUsage: /bcraw <message>"
+
+broadcast:
+  usage: "&cUsage: /bc <message>"
+
+store:
+  message:
+    - "&aStore: &7store.helydev.com"
+
+teamspeak:
+  message:
+    - "&aTeamspeak: &7ts.helydev.com"
+
+website:
+  message:
+    - "&aWebsite: &7helydev.com"
+
+discord:
+  message:
+    - "&aDiscord: &7discord.helydev.com"
+
+###################################################################################
+#                        MEDIA              COMMANDS                              #
+#               AVAILABLE                          PLACEHOLDERS                   #
+#                                %d_arrow%                                        #
+###################################################################################
+
+youtuber:
+  message:
+    - "&7&m-----------------------------------------------------"
+    - "&c&lYouTube Requirements"
+    - "&7%d_arrow% &cYou must have &f&l200 &csubscribers."
+    - "&7%d_arrow% &cYou need to upload at least &f2&c video on the server."
+    - "&7%d_arrow% &cYou are required to have at least&f&l 80&c views on recent videos."
+    - "&7&m-----------------------------------------------------"
+famous:
+  message:
+    - "&7&m-----------------------------------------------------"
+    - "&d&lFamous Requirements"
+    - "&7%d_arrow% &dYou must have &f&l500 &dsubscribers."
+    - "&7%d_arrow% &dYou need to upload at least &f2&d video on the server."
+    - "&7%d_arrow% &dYou are required to have at least&f&l 150&d views on recent videos."
+    - "&7&m-----------------------------------------------------"
+partner:
+  message:
+    - "&7&m-----------------------------------------------------"
+    - "&d&oPartner Requirements"
+    - "&7%d_arrow% &dYou must have &f&l750 &dsubscribers."
+    - "&7%d_arrow% &dYou need to upload at least &f3&d video on the server."
+    - "&7%d_arrow% &dYou are required to have at least&f&l 250&d views on recent videos."
+    - "&7&m-----------------------------------------------------"
+media-owner:
+  message:
+    - "&7&m-----------------------------------------------------"
+    - "&4&lMedia-Owner Requirements"
+    - "&7%d_arrow% &4You must have &f&l1,000 &4subscribers."
+    - "&7%d_arrow% &4You need to upload at least &f4&4 video on the server."
+    - "&7%d_arrow% &4You are required to have at least&f&l 500&4 views on recent videos."
+    - "&7&m-----------------------------------------------------"
+
+###################################################################################
+#                            WORLD PLAYER COUNT                                   #
+#               AVAILABLE                          PLACEHOLDERS                   #
+#                               %endplayers%                                      #
+###################################################################################
+
+endplayers:
+  message:
+    - "&7&m-------------------------------------------------"
+    - "&7There is currently &a%endplayers% players &7in the &5End&7!"
+    - "&7&m-------------------------------------------------"

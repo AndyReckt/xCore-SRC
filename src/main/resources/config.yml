@@ -1,0 +1,170 @@
+##########################################################
+#                   ORIGINAL AUTHOR                      #
+#                     LEANDROSSJ                         #
+#                                                        #
+#                  SKIDDED BY ANDREW                     #
+#                 MAKER OF VERSION V2                    #
+#                                                        #
+#                 discord.helydev.com                    #
+##########################################################
+
+commands: # If you want the command to be enabled, it needs to be true, if you want it disabled it needs to be false.
+  MediaOwnerCommand: true
+  PartnerCommand: true
+  YoutuberCommand: true
+  CopyInventoryCommand: true
+  SkullCommand: true
+  EnchantCommand: true
+  BottleCommand: true
+  DiscordCommand: true
+  TelegramCommand: true
+  FamousCommand: true
+  NightCommand: true
+  DayCommand: true
+  WebsiteCommand: true
+  TeamspeakCommand: true
+  StoreCommand: true
+  FightCommand: true
+  EndPlayersCommand: true
+  ClearInventoryCommand: true
+  InvseeCommand: true
+  HubCommand: true
+  FeedCommand: true
+  CraftCommand: true
+  RenameCommand: true
+  KillCommand: true
+  EnderChestCommand: true
+  LoreCommand: true
+  SpawnerCommand: true
+  SpawnCommand: true # This will also enable/disable the /setspawn command.
+  PlaytimeCommand: true
+  GameModeCommand: true
+  BroadcastCommand: true
+  BroadcastRawCommand: true
+  TeleportCommand: true
+  TeleportPositionCommand: true
+  TeleportHereCommand: true
+  ServerStatusCommand: true
+  PokeCommand: true
+  HiderCommand: true
+  HelpCommand: true
+  TopCommand: true
+  TpAllCommand: true
+  WorldCommand: true
+
+#####################################################################################
+
+settings:
+  server: # Server Events
+    donate-url: "store.yourserver.com"
+    pearl-glitch: true # Do you want the plugin to stop pearl glitching?
+    void-teleport-fix: true # Do you want the plugin to teleport a player to spawn after they fall in the void?
+    stat-trak: true # Do you want to enable StatTrak? (This will also enable/disable the pickaxe stats, along with kill stats on swords!)
+    whitelist-message: "&cSorry, this server is currently in maintenance."
+  custom-enchants:
+    enabled: true # Do you want to have it enabled?
+
+    Speed-Lore: "&b&nSpeed II"
+    Fire-Resistance-Lore: "&c&nFire Resistance I"
+  limiters:
+    potion-limiter: true # Do you want to enable this system?
+    enchant-limiter: true # Do you want to enable this system?
+  pvp: # PvP Events
+    hit-detection: 21 # 21 is the default number.
+    splash-potion-velocity: 2.0 # 2.0 is the default number.
+  block-repair:
+    enabled: true # Do you want to have block repair enabled?
+    item: CHEST # The name of the item that they can right click to repair.
+    title: "&8Repair" # The name of the inventory of the item repairer.
+    lore:
+      - ""
+    sound: LEVEL_UP # The audio name you would like to be played when a player repairs a item.
+
+    no-item: "&cYou do not have any item in your hand to repair."
+    repaired: "&aYou have repaired your item."
+  elevators:
+    enabled: true
+    invalid: "&cSorry, it needs to be either UP or DOWN."
+
+    used-sound: true # Do you want to enable the sound for when you use the sign?
+    sound_name: CLICK # The name of the sound when you use the sign.
+
+#####################################################################################
+
+hub-command:
+  hub-server: "Hub" # This is the BungeeCord name of your hub.
+
+#####################################################################################
+
+potion-refill-sign:
+  enabled: true
+
+  sound: true
+  sound-name: "CHEST_OPEN"
+
+  title: "Potion Refill:" # The title of the menu.
+
+  line-1: ""
+  line-2: "&b&lFree"
+  line-3: "&b&lPotions"
+  line-4: ""
+
+  permission-create: "core.refill.create" # The permission required to create the sign.
+
+#####################################################################################
+
+join-sound:
+  enabled: true
+
+#####################################################################################
+
+enderchest:
+  enabled: true
+
+  size: 9 # The size of the player vault, it can be "9, 18, 27, 36, 45, 54".
+
+#####################################################################################
+
+spawn: # DO NOT EDIT. THIS WILL BREAK YOUR CORE. YOU CAN CHANGE THESE COORDINATES VIA THE /SETSPAWN COMMAND INGAME!
+  world: world
+  x: 0.538049846829157
+  y: 69.0
+  z: 0.6617853658512408
+  yaw: 0.78689575
+  pitch: 11.715501
+
+#####################################################################################
+
+beacon-rename:
+  enabled: true # Do you want to enable this system?
+
+  scrambling: "&9Random Name... &7%random%"
+  random: "&6Your item has been renamed to: &f%name%"
+  cooldown-active: "&cYou have to wait %time% seconds."
+  need-sword: "&cYou must have a sword in your hand."
+  name-list:
+    - "&4Hely Development"
+    - "&c&lWE HATE LAUTI"
+    - "&d&lLeandroSSJ <3"
+    - "&7&nGod Player"
+
+#####################################################################################
+
+killstreaks:
+  enabled: true # Do you want to enable this system?
+  broadcast-message: "&b&l[!] %player% &fhas reached &d%killstreak% kills &fand has recieved &5&l%item%&f."
+  items: # These are the items that you want the player to be given when they reach certain amounts of kills!
+    KillReward:
+      name: "KillReward"
+      kills: 10
+      commands:
+        - "crate givekey %player% Reward 15"
+
+#####################################################################################
+
+rename-command:
+  blocked-names:
+    - "nigger"
+    - "nigga"
+    - "retard"
+    - "faggot"

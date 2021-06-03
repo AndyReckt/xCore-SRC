@@ -1,0 +1,56 @@
+##########################################################
+#                   ORIGINAL AUTHOR                      #
+#                     LEANDROSSJ                         #
+#                                                        #
+#                  SKIDDED BY ANDREW                     #
+#                 MAKER OF VERSION V2                    #
+#                                                        #
+#                 discord.helydev.com                    #
+##########################################################
+All commands in this core are toggleable, and other addons are toggleable also! :D
+
+Currently available commands:
+* Clear Inventory Command
+* Craft Command
+* EnderChest Command
+* Feed Command
+* Gamemode Command
+* Help Command
+* Hub Command
+* Invsee Command
+* Day &  Night Command
+* Teleport Command
+* Teleport Here Command
+* Top Command
+* TpAll Command
+* World Command
+* MediaOwner command
+* Famous Command
+* Partner Command
+* YouTuber Command
+* Store Command
+* Teamspeak Command
+* Website Command
+* EndPlayers Command
+* Fight Command
+* Disguise Command (BETA)
+* Broadcast Command
+* Broadcast Raw Command
+
+COMMAND PERMISSIONS:
+All commands have permissions. If you would like a rank to be able to use a command, give them these permissions. "core.command.<command name>"
+
+Currently available listeners:
+* Block Glitch Fix (Prevents people from being able to spam open fence gates, and glass to be able to hit people.)
+* Stregnth II Fix
+* Strength Fix
+* Whitelist Message
+* Boat Glitch Fix (Stops boats from being placed on land, and only in water.)
+* Better Hit Detection
+* Splash Potion Fixes
+* Weather Changing Fix
+* Horse Fix
+* StatTrak
+* Potion Refill Signs "[Refill]" on the first line.
+* Free Potion Effects Sign "Effects" on the second line.
+* Trash sign put "[Trash]" on the first line.
