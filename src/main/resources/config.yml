@@ -163,6 +163,11 @@ killstreaks:
 #####################################################################################
 
 rename-command:
+  warn: true # Do you wany the console to warn players who use a blocked rename word?
+  warn-command: "warn %player% Misuse of /rename" # The command that is executed by console when someone uses a blocked word in /rename.
+  play-sound: true # Do you want to play a sound when someone uses a blocked name?
+  sound-name: "CAT_MEOW" # The name of the sound.
+
   blocked-names:
     - "nigger"
     - "nigga"
