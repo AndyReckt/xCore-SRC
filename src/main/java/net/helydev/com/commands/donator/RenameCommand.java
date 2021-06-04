@@ -17,13 +17,14 @@ import java.util.List;
 
 public class RenameCommand {
 
-    public static final List<String> DISALLOWED;
+    public static List<String> DISALLOWED;
 
     @Command(name = "rename", permission = "core.command.rename", inGameOnly = true)
 
     public boolean sendMessage(CommandArgs command) {
         Player sender = command.getPlayer();
         String[] args = command.getArgs();
+        ItemStack item = sender.getItemInHand();
 
         if (args.length < 1) {
             sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("rename.usage")));
@@ -40,19 +41,19 @@ public class RenameCommand {
             oldName = oldName.trim();
         }
         String newName = args[0].equalsIgnoreCase("none") || args[0].equalsIgnoreCase("null") ? null : ChatColor.translateAlternateColorCodes('&', StringUtils.join(args, ' ', 0, args.length));
-        if (oldName == null && newName == null) {
-            sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("rename.no-name")));
-            return true;
-        }
         if (oldName != null && oldName.equals(newName)) {
             sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("rename.already-named")));
             return true;
         }
-        if(stack.getType() == Material.TRIPWIRE_HOOK){
-            sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("rename.cannot-rename-tripwirehook")));
-            Bukkit.broadcast(ChatColor.GRAY + sender.getName() + " attempted to rename a tripwire hook to " + newName + ChatColor.GRAY + "! (Could potentially be trying to create a crate key)", "core.staff");
-            return true;
+        if (xCore.getPlugin().getConfig().getBoolean("rename-command.swords-only")) {
+            if (!sender.hasPermission("core.rename.bypass")) {
+                if (!item.getType().name().endsWith("_SWORD")) {
+                    sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("rename.only-swords")));
+                    return false;
+                }
+            }
         }
+
         if (newName != null) {
             final String lower = newName.toLowerCase();
             for (final String word : DISALLOWED) {
@@ -60,8 +61,10 @@ public class RenameCommand {
                     if (xCore.getPlugin().getConfig().getBoolean("rename-command.play-sound")) {
                         sender.playSound(sender.getLocation(), Sound.valueOf(xCore.getPlugin().getConfig().getString("rename-command.sound-name").toUpperCase()), 1.0F, 1.0F);
                         sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("rename.not-allowed")));
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), xCore.getPlugin().getConfig().getString("rename-command.command"));
-                        return true;
+                        if (xCore.getPlugin().getConfig().getBoolean("rename-command.warn")) {
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), xCore.getPlugin().getConfig().getString("rename-command.warn-command"));
+                            return true;
+                        }
                     }
                 }
             }
@@ -69,9 +72,11 @@ public class RenameCommand {
         meta.setDisplayName(newName);
         stack.setItemMeta(meta);
         if (newName == null) {
+            assert oldName != null;
             sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("rename.removed-name").replace("%name%", oldName)));
             return true;
         }
+        sender.updateInventory();
         sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("rename.renamed")));
         return true;
     }
