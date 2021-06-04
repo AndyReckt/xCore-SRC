@@ -41,12 +41,14 @@ commands: # If you want the command to be enabled, it needs to be true, if you w
   GameModeCommand: true
   BroadcastCommand: true
   BroadcastRawCommand: true
+  SetColorCommand: true
   TeleportCommand: true
   TeleportPositionCommand: true
   TeleportHereCommand: true
   ServerStatusCommand: true
   PokeCommand: true
   HiderCommand: true
+  RepairCommand: true
   HelpCommand: true
   TopCommand: true
   TpAllCommand: true
@@ -57,6 +59,7 @@ commands: # If you want the command to be enabled, it needs to be true, if you w
 settings:
   server: # Server Events
     donate-url: "store.yourserver.com"
+    perks-system: true # This will enable Speed, Fire Res, Invisibility Commands.
     pearl-glitch: true # Do you want the plugin to stop pearl glitching?
     void-teleport-fix: true # Do you want the plugin to teleport a player to spawn after they fall in the void?
     stat-trak: true # Do you want to enable StatTrak? (This will also enable/disable the pickaxe stats, along with kill stats on swords!)
@@ -72,16 +75,6 @@ settings:
   pvp: # PvP Events
     hit-detection: 21 # 21 is the default number.
     splash-potion-velocity: 2.0 # 2.0 is the default number.
-  block-repair:
-    enabled: true # Do you want to have block repair enabled?
-    item: CHEST # The name of the item that they can right click to repair.
-    title: "&8Repair" # The name of the inventory of the item repairer.
-    lore:
-      - ""
-    sound: LEVEL_UP # The audio name you would like to be played when a player repairs a item.
-
-    no-item: "&cYou do not have any item in your hand to repair."
-    repaired: "&aYou have repaired your item."
   elevators:
     enabled: true
     invalid: "&cSorry, it needs to be either UP or DOWN."
@@ -164,6 +157,7 @@ killstreaks:
 
 rename-command:
   warn: true # Do you wany the console to warn players who use a blocked rename word?
+  swords-only: true # Do you want to make it so you can ONLY rename swords? NOTE: This stops dupe glitches. If you would like a player to bypass this, you can give them core.command.rename.bypass.
   warn-command: "warn %player% Misuse of /rename" # The command that is executed by console when someone uses a blocked word in /rename.
   play-sound: true # Do you want to play a sound when someone uses a blocked name?
   sound-name: "CAT_MEOW" # The name of the sound.
@@ -173,3 +167,6 @@ rename-command:
     - "nigga"
     - "retard"
     - "faggot"
+
+#####################################################################################
+

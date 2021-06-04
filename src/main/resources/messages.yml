@@ -25,6 +25,31 @@ listeners:
   place-spawner-nether: "&cYou cannot place spawners in the &c&lNether&c."
   invalid-syntax: "&cYou have used a invalid Syntax. Your actions have just been logged in a database."
 
+perks:
+  help:
+    - ""
+    - "&b&lDonator Perks"
+    - "&7Want these perks? Purchase a rank."
+    - ""
+    - "&a/perks speed &7- &fGives you Speed II."
+    - "&a/perks fireresistance &7- &fGives you Fire Resistance."
+    - "&a/perks invisibility &7- &fGives you Invisibility."
+    - ""
+  used-speed: "&aYou have activated your Speed Effect."
+  removed-speed: "&cYou have deactivated your Speed Effect."
+  used-invisibility: "&aYou have activated your Invisibility Effect."
+  removed-invisibility: "&cYou have deactivated your Invisibility Effect."
+  used-fireresistance: "&aYou have activated your Fire Resistance Effect."
+
+repair:
+  no-permission: "&cYou do not have permission."
+  usage: "&cCorrect usage: /repair <hand|all>"
+  no-item: "&cYou must be holding a item in your hand."
+  not-damaged: "&cThat item does not need repaired."
+  inventory-repair-fail: "&cYou have no items in your inventory that need repaired."
+  repaired-hand: "&aYou have repaired the item in your hand."
+  repaired-inventory: "&aYou have repaired all broken items in your inventory."
+
 joinmessage:
   message:
       - "&7&m--------------------------------------------------"
@@ -80,13 +105,17 @@ skull:
 rename:
   usage: "&cCorrect usage: /rename <new name>"
   not-holding: "&cYou must be holding a item to rename."
-  no-name: "&cThis item already does not have a name."
   already-named: "&cSorry, this item already has this name."
   not-allowed: "&cYou have a &4blacklisted &cname in your item. You have recieved a warning!"
   removed-name: "&7You have removed the custom name on your item! (Old name: &a%name%&7)"
+  only-swords: "&cSorry, you can only rename swords!"
   renamed: "&aYou have renamed your item."
-  # DUPLICATION FIXES #
-  cannot-rename-tripwirehook: "&cYou cannot rename this item."
+
+setcolor:
+  usage: "&cCorrect usage: /setcolor <color>"
+  cannot-color: "&cYou cannot change the color of this item.."
+  invalid-color: "&cSorry, the color you have provided is not a real color."
+  reset: "&cThe color of your item has just been reset."
 
 tppos:
   sound: true # Do you want to enable sound when you teleport?
