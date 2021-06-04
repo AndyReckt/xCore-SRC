@@ -5,10 +5,7 @@ import net.helydev.com.commands.*;
 import net.helydev.com.commands.Killstreaks.KillstreaksCommand;
 import net.helydev.com.commands.broadcast.BroadcastCommand;
 import net.helydev.com.commands.broadcast.BroadcastRawCommand;
-import net.helydev.com.commands.donator.BottleCommand;
-import net.helydev.com.commands.donator.EndPlayersCommand;
-import net.helydev.com.commands.donator.FightCommand;
-import net.helydev.com.commands.donator.RenameCommand;
+import net.helydev.com.commands.donator.*;
 import net.helydev.com.commands.links.*;
 import net.helydev.com.commands.media.FamousCommand;
 import net.helydev.com.commands.media.MediaOwnerCommand;
@@ -43,7 +40,7 @@ public class xCore extends JavaPlugin {
     public static List<KillStreaks> killStreaks = new ArrayList<>();
 
     private Config message;
-
+    private PotRefillSignListener PerkMenuListener;
 
     public static xCore getPlugin() {
         return plugin;
@@ -243,6 +240,9 @@ public class xCore extends JavaPlugin {
         if (xCore.getPlugin().getConfig().getBoolean("commands.TeleportCommand")) {
             commandFramework.registerCommands(new TeleportCommand());
         }
+        if (xCore.getPlugin().getConfig().getBoolean("settings.server.perks-system")) {
+            commandFramework.registerCommands(new PerksCommand());
+        }
         if (xCore.getPlugin().getConfig().getBoolean("commands.TeleportHereCommand")) {
             commandFramework.registerCommands(new TeleportHereCommand());
         }
@@ -258,11 +258,14 @@ public class xCore extends JavaPlugin {
         if (xCore.getPlugin().getConfig().getBoolean("commands.TpAllCommand")) {
             commandFramework.registerCommands(new TpAllCommand());
         }
-        if (xCore.getPlugin().getConfig().getBoolean("settings.block-repair.enabled")) {
-            commandFramework.registerCommands(new ItemCommand());
+        if (xCore.getPlugin().getConfig().getBoolean("commands.RepairCommand")) {
+            commandFramework.registerCommands(new RepairCommand());
         }
         if (xCore.getPlugin().getConfig().getBoolean("commands.WorldCommand")) {
             commandFramework.registerCommands(new WorldCommand());
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("commands.SetColorCommand")) {
+            commandFramework.registerCommands(new SetColorCommand());
         }
         commandFramework.registerHelp();
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aRegistered all commands!");
@@ -333,5 +336,9 @@ public class xCore extends JavaPlugin {
 
     public Config getLimitersFile() {
         return this.limitersFile;
+    }
+
+    public PotRefillSignListener getPerkMenuListener() {
+        return this.PerkMenuListener;
     }
 }
