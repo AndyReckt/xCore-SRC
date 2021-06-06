@@ -112,7 +112,7 @@ public class ItemUtils
         catch (Exception ex) {}
     }
 
-    private static String getName(final ItemStack item) {
+    public static String getName(final ItemStack item) {
         if (!item.hasItemMeta()) {
             return null;
         }

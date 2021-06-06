@@ -1,6 +1,7 @@
 package net.helydev.com.utils;
 
 import com.google.common.base.Preconditions;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -12,6 +13,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
 import java.util.List;
+import java.util.UUID;
 
 public final class BukkitUtils {
     public static Location getHighestLocation(final Location origin) {
@@ -35,6 +37,13 @@ public final class BukkitUtils {
             }
         }
         return def;
+    }
+
+    public static Player playerWithNameOrUUID(final String string){
+        if(string == null){
+            return null;
+        }
+        return JavaUtils.isUUID(string) ? Bukkit.getPlayer(UUID.fromString(string)) : Bukkit.getPlayer(string);
     }
 
     @SuppressWarnings("deprecation")
