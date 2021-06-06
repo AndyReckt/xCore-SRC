@@ -27,6 +27,8 @@ import net.helydev.com.listeners.systems.BeaconRenamerListener;
 import net.helydev.com.utils.chat.ChatUtil;
 import net.helydev.com.utils.commands.CommandFramework;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -44,6 +46,10 @@ public class xCore extends JavaPlugin {
 
     public static xCore getPlugin() {
         return plugin;
+    }
+
+    public static boolean canSee(CommandSender sender, Player target){
+        return target != null && (!(sender instanceof Player) || ((Player) sender).canSee(target));
     }
 
 
@@ -141,8 +147,14 @@ public class xCore extends JavaPlugin {
         if (xCore.getPlugin().getConfig().getBoolean("commands.TeleportPositionCommand")) {
             commandFramework.registerCommands(new TeleportPositionCommand());
         }
+        if (xCore.getPlugin().getConfig().getBoolean("commands.NearCommand")) {
+            commandFramework.registerCommands(new NearCommand());
+        }
         if (xCore.getPlugin().getConfig().getBoolean("killstreaks.enabled")) {
             commandFramework.registerCommands(new KillstreaksCommand());
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("commands.HealCommand")) {
+            commandFramework.registerCommands(new HealCommand());
         }
         if (xCore.getPlugin().getConfig().getBoolean("commands.PlaytimeCommand")) {
             commandFramework.registerCommands(new PlaytimeCommand());
@@ -170,6 +182,12 @@ public class xCore extends JavaPlugin {
         }
         if (xCore.getPlugin().getConfig().getBoolean("commands.HiderCommand")) {
             commandFramework.registerCommands(new HiderCommand());
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("commands.SetMOTDCommand")) {
+            commandFramework.registerCommands(new SetMOTDCommand());
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("commands.ItemIDCommand")) {
+            commandFramework.registerCommands(new IDCommand());
         }
         if (xCore.getPlugin().getConfig().getBoolean("commands.PokeCommand")) {
             commandFramework.registerCommands(new PokeCommand());
@@ -258,8 +276,14 @@ public class xCore extends JavaPlugin {
         if (xCore.getPlugin().getConfig().getBoolean("commands.TpAllCommand")) {
             commandFramework.registerCommands(new TpAllCommand());
         }
+        if (xCore.getPlugin().getConfig().getBoolean("commands.ListCommand")) {
+            commandFramework.registerCommands(new ListCommand());
+        }
         if (xCore.getPlugin().getConfig().getBoolean("commands.RepairCommand")) {
             commandFramework.registerCommands(new RepairCommand());
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("commands.HatCommand")) {
+            commandFramework.registerCommands(new HatCommand());
         }
         if (xCore.getPlugin().getConfig().getBoolean("commands.WorldCommand")) {
             commandFramework.registerCommands(new WorldCommand());
@@ -281,8 +305,9 @@ public class xCore extends JavaPlugin {
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aRegistering listeners..");
         manager.registerEvents(new CoreListener(), this);
         manager.registerEvents(new BlockGlitchListener(), this);
-        manager.registerEvents(new BoatGlitchListener(), this);
-        manager.registerEvents(new KillTrackerListener(), this);
+        if (xCore.getPlugin().getConfig().getBoolean("settings.server.kill-tracker")) {
+            manager.registerEvents(new KillTrackerListener(), this);
+        }
         if (xCore.getPlugin().getConfig().getBoolean("commands.SkullCommand")) {
             manager.registerEvents(new SkullListener(), this);
         }
@@ -293,7 +318,7 @@ public class xCore extends JavaPlugin {
             manager.registerEvents(new ElevatorSignListener(), this);
         }
         manager.registerEvents(new WeatherListener(), this);
-        if (xCore.getPlugin().getConfig().getBoolean("settings.stat-trak")) {
+        if (xCore.getPlugin().getConfig().getBoolean("settings.server.stat-trak")) {
             manager.registerEvents(new StatTrakListener(), this);
         }
         if (xCore.getPlugin().getConfig().getBoolean("settings.void-teleport-fix")) {
