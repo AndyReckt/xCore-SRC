@@ -76,9 +76,9 @@ help:
     - "&aTeamspeak&8 - &fts.xcore.com"
     - "&7&m--*------------------------------*--"
 
-list-command:
-  message:
-    - "&7Their is currently &d&l%players%/%players-max% &7connect to this server."
+spawner:
+  usage: "&cCorrect Usage: /spawner <entity>"
+  given: "&aYou have just been given a &a&l%spawner% Spawner&a!"
 
 spawn:
   self: "&aYou have been teleported to spawn."
@@ -89,6 +89,12 @@ spawn:
 
 core-command:
   reloaded: "&cYou have just reloaded &6&lxCore &cconfiguration files!"
+
+heal-command:
+  usage: "&cCorrect Usage: /heal <player>"
+  not-found: "&cThat player could not be found."
+  full-hearts: "&c&l%target% &calready has full hearts."
+  healed-all: "&aAll players have just been healed by &a&n%executor%&a."
 
 enchant-command:
   usage: "&cUsage: /enchant <enchantment> <level>"
@@ -186,7 +192,29 @@ feed:
   target-fed: "&6Your hunger has just been refilled by &6&l%executor%&6."
 
 copy-inventory:
+
+near:
+  list:
+    - ""
+    - "&b&lNearby Players"
+    - "&7This is a list of all nearby players."
+    - "&cNOTE: &7People with &dInvisibility &7are not shown."
+    - ""
+    - "&a* &7%list%"
+    - ""
   
+list:
+  none: "&cTheir is no players near your location."
+  online:
+    - ""
+    - "&b&lOnline Players"
+    - "&7A total count of players is listed below!"
+    - ""
+    - "&a* &bOnline Players: &a%online%"
+    - ""
+
+itemid:
+  no-item: "&cYou do not have a item in your hand."
 
 enderchest:
   open-self: "&cYou cannot open your own enderchest."
@@ -237,8 +265,11 @@ teleport-here:
   teleported: "&cYou have teleported &a%target% &cto you."
 
 bottle:
-  botteled: "&aYou have bottled all your XP!"
-  no-xp: "&cSorry, you have no &c&nXP Levels&c to bottle."
+  sound: true # Do you want to play a sound when they bottle XP?
+  sound-name: "LEVEL_UP" # The name of the sound you want played.
+  no-bottle: "&cYou must have a &c&nGlass Bottle&c in your hand."
+  no-xp: "&cYou have no experience to bottle."
+  bottled: "&cYou have just bottled &c&l%amount% XP&c."
 
 top:
   sound: true # Do you want to enable sound when you teleport?
@@ -250,6 +281,12 @@ top:
 tp-all:
   teleported: "&cAll players have been teleported to your location."
   target-message: "&cYou have been teleported to &c&l%player%&c."
+
+hat-command:
+  not-holding: "&cYou are not holding a item."
+  not-suitable: "&cThis item is not suitable of being a hat."
+  already-have: "&cYou already have a item as a hat."
+  done: "&aYou are now wearing that item as your hat."
 
 world:
   usage: "&cUsage: /world <world>"

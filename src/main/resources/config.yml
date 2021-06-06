@@ -20,12 +20,15 @@ commands: # If you want the command to be enabled, it needs to be true, if you w
   TelegramCommand: true
   FamousCommand: true
   NightCommand: true
+  SetMOTDCommand: true
+  ItemIDCommand: true
   DayCommand: true
   WebsiteCommand: true
   TeamspeakCommand: true
   StoreCommand: true
   FightCommand: true
   EndPlayersCommand: true
+  NearCommand: true
   ClearInventoryCommand: true
   InvseeCommand: true
   HubCommand: true
@@ -35,6 +38,7 @@ commands: # If you want the command to be enabled, it needs to be true, if you w
   KillCommand: true
   EnderChestCommand: true
   LoreCommand: true
+  ListCommand: true
   SpawnerCommand: true
   SpawnCommand: true # This will also enable/disable the /setspawn command.
   PlaytimeCommand: true
@@ -44,6 +48,8 @@ commands: # If you want the command to be enabled, it needs to be true, if you w
   SetColorCommand: true
   TeleportCommand: true
   TeleportPositionCommand: true
+  HatCommand: true
+  HealCommand: true
   TeleportHereCommand: true
   ServerStatusCommand: true
   PokeCommand: true
@@ -62,6 +68,7 @@ settings:
     perks-system: true # This will enable Speed, Fire Res, Invisibility Commands.
     pearl-glitch: true # Do you want the plugin to stop pearl glitching?
     void-teleport-fix: true # Do you want the plugin to teleport a player to spawn after they fall in the void?
+    kill-tracker: true # Do you want to enable kill tracker?
     stat-trak: true # Do you want to enable StatTrak? (This will also enable/disable the pickaxe stats, along with kill stats on swords!)
     whitelist-message: "&cSorry, this server is currently in maintenance."
   custom-enchants:
@@ -169,4 +176,3 @@ rename-command:
     - "faggot"
 
 #####################################################################################
-
