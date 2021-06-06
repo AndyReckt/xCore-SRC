@@ -27,7 +27,7 @@ public class FeedCommand {
                 player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("feed.already-has").replace("%target%", target.getName())));
                 return;
             }
-            if (target.equals(player)) {
+            if(target != null && target.getFoodLevel() == 20) {
                 player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("feed.cannot-give-self")));
                 return;
             }

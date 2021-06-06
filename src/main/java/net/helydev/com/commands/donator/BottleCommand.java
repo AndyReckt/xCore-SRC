@@ -1,8 +1,10 @@
 package net.helydev.com.commands.donator;
 
+import net.helydev.com.utils.Color;
 import net.helydev.com.utils.base.ExperienceManager;
 import net.helydev.com.utils.commands.Command;
 import net.helydev.com.utils.commands.CommandArgs;
+import net.helydev.com.xCore;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -21,7 +23,7 @@ public class BottleCommand {
         ItemStack item = sender.getItemInHand();
 
         if (item == null || item.getType() != Material.GLASS_BOTTLE || item.getAmount() != 1) {
-            sender.sendMessage(ChatColor.RED + "You must be holding one glass bottle in your hand.");
+            sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("bottle.no-bottle")));
             return;
         }
 
@@ -30,7 +32,7 @@ public class BottleCommand {
         manager.setExp(0.0D);
 
         if (experience == 0) {
-            sender.sendMessage(ChatColor.RED + "You don't have any experience to bottle!");
+            sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("bottle.no-xp")));
         }
 
         ItemStack result = new ItemStack(Material.EXP_BOTTLE);
@@ -41,8 +43,10 @@ public class BottleCommand {
         result.setItemMeta(meta);
 
         sender.setItemInHand(result);
-        sender.sendMessage(ChatColor.GREEN + "You have bottled " + NumberFormat.getInstance().format(experience) + " XP!");
-        sender.playSound(sender.getLocation(), Sound.LEVEL_UP, 1.0F, 1.0F);
+        sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("bottle.bottled").replace("%amount%", NumberFormat.getInstance().format(experience))));
+        if (xCore.getPlugin().getMessageconfig().getConfiguration().getBoolean("bottle.sound")) {
+            sender.playSound(sender.getLocation(), Sound.valueOf(xCore.getPlugin().getMessageconfig().getConfiguration().getString("bottle.sound-name").toUpperCase()), 1.0F, 1.0F);
+        }
     }
 
 }
