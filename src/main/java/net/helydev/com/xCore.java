@@ -20,15 +20,15 @@ import net.helydev.com.listeners.*;
 import net.helydev.com.listeners.elevators.ElevatorSignListener;
 import net.helydev.com.listeners.killstreaks.KillStreaks;
 import net.helydev.com.listeners.killstreaks.KillstreakListener;
-import net.helydev.com.listeners.limiters.PotionLimitListener;
 import net.helydev.com.listeners.patches.*;
 import net.helydev.com.listeners.signs.PotRefillSignListener;
 import net.helydev.com.listeners.systems.BeaconRenamerListener;
+import net.helydev.com.utils.Color;
 import net.helydev.com.utils.chat.ChatUtil;
 import net.helydev.com.utils.commands.CommandFramework;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -38,7 +38,8 @@ import java.util.List;
 public class xCore extends JavaPlugin {
 
     private static xCore plugin;
-    private Config limitersFile;
+
+    private MobstackListener mobStackManager;
     public static List<KillStreaks> killStreaks = new ArrayList<>();
 
     private Config message;
@@ -76,7 +77,6 @@ public class xCore extends JavaPlugin {
         xCore.getPlugin().reloadConfig();
         xCore.getPlugin().registerconfig();
         xCore.getPlugin().registermanagers();
-        xCore.getPlugin().registerLimiters();
         xCore.getPlugin().registerCommand();
         xCore.getPlugin().registerListeners();
         for (String item : plugin.getConfig().getConfigurationSection("killstreaks.items").getKeys(false)) {
@@ -85,6 +85,25 @@ public class xCore extends JavaPlugin {
             List<String> command = plugin.getConfig().getStringList("killstreaks.items." + item + ".command");
             KillStreaks killsAdd = new KillStreaks(name, kills, command);
             killStreaks.add(killsAdd);
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("settings.server.mob-stack.enabled")) {
+            xCore.getPlugin().mobStackManager = new MobstackListener();
+            xCore.getPlugin().mobStackManager.enable();
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("clear-lag.enabled")) {
+            xCore.getPlugin().onClear();
+        }
+    }
+
+    /**
+     * On plugin disable...
+     */
+
+    @Override
+    public void onDisable() {
+        ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aDisabling plugin..");
+        if (getPlugin().getConfig().getBoolean("settings.server.mob-stack.enabled")) {
+            getPlugin().mobStackManager.disable();
         }
     }
 
@@ -96,11 +115,6 @@ public class xCore extends JavaPlugin {
         this.message=new Config(xCore.getPlugin(), "messages", xCore.getPlugin().getDataFolder().getAbsolutePath());
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aRegistering &a&lconfig.yml&a..");
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aRegistering &a&lmessages.yml&a..");
-    }
-
-    public void registerLimiters() {
-        this.limitersFile= new Config(xCore.getPlugin(), "limiters", xCore.getPlugin().getDataFolder().getAbsolutePath());
-        ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aRegistering &a&llimiters.yml&a..");
     }
 
     /**
@@ -116,14 +130,6 @@ public class xCore extends JavaPlugin {
      */
     public Config getMessageconfig(){
         return message;
-    }
-
-    /**
-     * On plugin disable...
-     */
-    @Override
-    public void onDisable() {
-        ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aDisabling plugin..");
     }
 
     /**
@@ -143,6 +149,9 @@ public class xCore extends JavaPlugin {
         }
         if (xCore.getPlugin().getConfig().getBoolean("commands.FightCommand")) {
             commandFramework.registerCommands(new FightCommand());
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("clear-lag.enabled")) {
+            commandFramework.registerCommands(new ClearlagCommand());
         }
         if (xCore.getPlugin().getConfig().getBoolean("commands.TeleportPositionCommand")) {
             commandFramework.registerCommands(new TeleportPositionCommand());
@@ -288,8 +297,20 @@ public class xCore extends JavaPlugin {
         if (xCore.getPlugin().getConfig().getBoolean("commands.WorldCommand")) {
             commandFramework.registerCommands(new WorldCommand());
         }
+        if (xCore.getPlugin().getConfig().getBoolean("commands.HelpOpCommand")) {
+            commandFramework.registerCommands(new HelpOpCommand());
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("commands.ReportCommand")) {
+            commandFramework.registerCommands(new ReportCommand());
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("commands.OresCommand")) {
+            commandFramework.registerCommands(new OresCommand());
+        }
         if (xCore.getPlugin().getConfig().getBoolean("commands.SetColorCommand")) {
             commandFramework.registerCommands(new SetColorCommand());
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("settings.server.voucher-system")) {
+            commandFramework.registerCommands(new VouchersCommand());
         }
         commandFramework.registerHelp();
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aRegistered all commands!");
@@ -308,11 +329,23 @@ public class xCore extends JavaPlugin {
         if (xCore.getPlugin().getConfig().getBoolean("settings.server.kill-tracker")) {
             manager.registerEvents(new KillTrackerListener(), this);
         }
+        if (xCore.getPlugin().getConfig().getBoolean("settings.server.voucher-system")) {
+            manager.registerEvents(new VouchersListener(), this);
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("settings.server.ghost-block-fixer")) {
+            manager.registerEvents(new GhostBlockFixListener(), this);
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("settings.server.anvil-repairer")) {
+            manager.registerEvents(new AnvilRepairerListener(), this);
+        }
         if (xCore.getPlugin().getConfig().getBoolean("commands.SkullCommand")) {
             manager.registerEvents(new SkullListener(), this);
         }
         if (xCore.getPlugin().getConfig().getBoolean("killstreaks.enabled")) {
             manager.registerEvents(new KillstreakListener(), this);
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("settings.server.anti-dropdown")) {
+            manager.registerEvents(new AntiDropDownListener(), this);
         }
         if (xCore.getPlugin().getConfig().getBoolean("settings.elevators.enabled")) {
             manager.registerEvents(new ElevatorSignListener(), this);
@@ -335,14 +368,14 @@ public class xCore extends JavaPlugin {
         if (xCore.getPlugin().getConfig().getBoolean("enderchest.enabled")) {
             manager.registerEvents(new EnderchestListener(), this);
         }
+        if (xCore.getPlugin().getConfig().getBoolean("settings.server.mob-stack.enabled")) {
+            manager.registerEvents(new MobstackListener(), this);
+        }
         if (xCore.getPlugin().getConfig().getBoolean("potion-refill-sign.enabled")) {
             manager.registerEvents(new PotRefillSignListener(), this);
         }
-        if (xCore.getPlugin().getConfig().getBoolean("settings.limiters.potion-limiter")) {
-            manager.registerEvents(new PotionLimitListener(this), this);
-        }
         if (xCore.getPlugin().getConfig().getBoolean("beacon-rename.enabled")) {
-            manager.registerEvents(new BeaconRenamerListener(this), this);
+            manager.registerEvents(new BeaconRenamerListener(), this);
         }
         manager.registerEvents(new SplashPotionFixListener(), this);
         manager.registerEvents(new WhitelistListener(), this);
@@ -359,11 +392,25 @@ public class xCore extends JavaPlugin {
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aNOTICE: A player has just reloaded the config from ingame!");
     }
 
-    public Config getLimitersFile() {
-        return this.limitersFile;
-    }
-
-    public PotRefillSignListener getPerkMenuListener() {
-        return this.PerkMenuListener;
+    public void onClear() {
+        Bukkit.getScheduler().runTaskLater(getPlugin(), new Runnable() {
+            public void run() {
+                final List<Entity> entity = Bukkit.getWorld("world").getEntities();
+                final int total = entity.size();
+                for (final Entity e : entity) {
+                    if (!(e instanceof Player) && !(e instanceof ItemFrame) && !(e instanceof Villager) && !(e instanceof EnderDragon) && !(e instanceof Minecart) && !(e instanceof Horse)) {
+                        e.remove();
+                    }
+                }
+                Bukkit.broadcastMessage(Color.translate(xCore.getPlugin().getConfig().getString("clear-lag.message").replace("%total%", String.valueOf(total))));
+                final List<Entity> entityEnd = Bukkit.getWorld("world_the_end").getEntities();
+                for (final Entity e2 : entityEnd) {
+                    if (!(e2 instanceof Player) && !(e2 instanceof ItemFrame) && !(e2 instanceof Villager) && !(e2 instanceof EnderDragon) && !(e2 instanceof Minecart)) {
+                        e2.remove();
+                    }
+                }
+                xCore.this.onClear();
+            }
+        }, 4200L);
     }
 }
