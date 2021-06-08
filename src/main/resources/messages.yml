@@ -12,18 +12,32 @@ basic:
   no-permission: "&cNo Permissions!"
   only-players: "&cSorry, only players can execute this command."
 
-online-donators:
-  announcement:
-    - ""
-    - "&bOnline Donators: &f%donators%"
-    - "&7If you want to be featured on this list purchase a rank."
-    - ""
-
-
 listeners:
   break-spawner-nether: "&cYou cannot break spawners in the &c&lNether&c."
   place-spawner-nether: "&cYou cannot place spawners in the &c&lNether&c."
   invalid-syntax: "&cYou have used a invalid Syntax. Your actions have just been logged in a database."
+
+report:
+  usage: "&cCorrect Usage: /report <player> <reason>"
+  specify-player: "&cYou must specify a player to report."
+  not-online: "&cThat player is not currently online."
+  alert: "&a%player% &7has just reported &a&n%target%&7 for the reason: &6%message%"
+  cooldown: "&cYou are still on cooldown."
+  recieved: "&aAll online staff members have recieved your report."
+
+pearl-glitch:
+  detected: "&cYour &5Ender Pearl &chas been detected as &c&lPearl Glitching&c. Your &5Ender Pearl &chas been refunded."
+
+anvil-repairer:
+  hold-item: "&cYou must be holding a item that can be repaired."
+  not-damaged: "&cThis item does not need to be repaired."
+  repaired: "&aYou have repaired your item."
+
+helpop:
+  usage: "&cCorrect Usage: /helpop <reason>"
+  cooldown: "&cYou are still on cooldown."
+  recieved: "&aAll online staff members have recieved your message."
+  alert: "&b[HelpOP] &a%player% &7is requesting help: &a%message%"
 
 perks:
   help:
@@ -61,6 +75,23 @@ joinmessage:
       - "&7 * &eStore: &fstore.xcore.com"
       - "&7&m--------------------------------------------------"
 
+vouchers:
+  not-online: "&cSorry, &c&n%player%&c is not currently online."
+  help:
+    - "&7&m--*------------------------------*--"
+    - "&b&lVoucher System"
+    - "&7Use one of the commands below, to use the &aVoucher System&7."
+    - ""
+    - "&a* &7/voucher give <player> <amount> <voucher> &8- &fGive a player a voucher."
+    - "&a* &7/voucher giveall <amount> <voucher> &8- &fGive all online players a voucher."
+    - "&7&m--*------------------------------*--"
+  given: "&aYou have given a &fvoucher &ato to &a&n%player%&a."
+  given-target: "&aYou have just recieved a &fvoucher&a!"
+  invalid-number: "&c'%number%' is not a valid number."
+  not-positive: "&cYour number must be positive."
+  max: "&cYou can only give a max of 64 vouchers at a time."
+  not-exist: "&cSorry, this voucher does not exist."
+
 help:
   help-command:
     - "&7&m--*------------------------------*--"
@@ -79,11 +110,12 @@ help:
 spawner:
   usage: "&cCorrect Usage: /spawner <entity>"
   given: "&aYou have just been given a &a&l%spawner% Spawner&a!"
+  invalid: "&cYou have provided a invalid spawner name."
 
 spawn:
+  cooldown: "&cYou are already teleporting to &aSpawn&c."
   self: "&aYou have been teleported to spawn."
   other: "&aYou have just teleported &a&n%target%&a to &a&lSpawn&a."
-
   setspawn:
     set: "&a&l(!) &aYou have set the &a&lWorld Spawn &ato your location."
 
@@ -114,6 +146,7 @@ rename:
   already-named: "&cSorry, this item already has this name."
   not-allowed: "&cYou have a &4blacklisted &cname in your item. You have recieved a warning!"
   removed-name: "&7You have removed the custom name on your item! (Old name: &a%name%&7)"
+  cooldown: "&cSorry, you must wait to rename your item again."
   only-swords: "&cSorry, you can only rename swords!"
   renamed: "&aYou have renamed your item."
 
@@ -191,8 +224,6 @@ feed:
   cannot-give-self: "&cYou cannot give your self hunger using this command. You can use &6/feed&c."
   target-fed: "&6Your hunger has just been refilled by &6&l%executor%&6."
 
-copy-inventory:
-
 near:
   list:
     - ""
@@ -215,6 +246,37 @@ list:
 
 itemid:
   no-item: "&cYou do not have a item in your hand."
+
+ores:
+  offline: "&cThat player is offline."
+  stats-self:
+    - ""
+    - "&b&lMined Ores"
+    - "&7This is a list of all the ores"
+    - "&7you  have mined!"
+    - ""
+    - "&a* &fDiamonds: &7%diamonds%"
+    - "&a* &fEmeralds: &7%emeralds%"
+    - "&a* &fIron: &7%iron%"
+    - "&a* &fCoal: &7%coal%"
+    - "&a* &fLapis: &7%lapis%"
+    - "&a* &fRedstone: &7%redstone%"
+    - "&a* &fGold: &7%gold%"
+    - ""
+  stats-target:
+    - ""
+    - "&b&lMined Ores"
+    - "&7This is a list of all the ores"
+    - "&7that &a%name% &7has mined!"
+    - ""
+    - "&a* &fDiamonds: &7%diamonds%"
+    - "&a* &fEmeralds: &7%emeralds%"
+    - "&a* &fIron: &7%iron%"
+    - "&a* &fCoal: &7%coal%"
+    - "&a* &fLapis: &7%lapis%"
+    - "&a* &fRedstone: &7%redstone%"
+    - "&a* &fGold: &7%gold%"
+    - ""
 
 enderchest:
   open-self: "&cYou cannot open your own enderchest."
@@ -265,11 +327,11 @@ teleport-here:
   teleported: "&cYou have teleported &a%target% &cto you."
 
 bottle:
-  sound: true # Do you want to play a sound when they bottle XP?
-  sound-name: "LEVEL_UP" # The name of the sound you want played.
   no-bottle: "&cYou must have a &c&nGlass Bottle&c in your hand."
   no-xp: "&cYou have no experience to bottle."
-  bottled: "&cYou have just bottled &c&l%amount% XP&c."
+  no-space: "&cYou do not have any inventory space for this item."
+  bottled: "&aYou have botteled all your XP levels."
+  invalid: "&cThis is a invalid experience bottle."
 
 top:
   sound: true # Do you want to enable sound when you teleport?
