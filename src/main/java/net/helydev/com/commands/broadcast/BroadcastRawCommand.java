@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 public class BroadcastRawCommand {
 
-    @Command(name = "broadcastraw", permission = "core.command.broadcastraw", inGameOnly = true, aliases = {"bcraw"})
+    @Command(name = "broadcastraw", permission = "core.command.broadcastraw", inGameOnly = false, aliases = {"bcraw"})
     public void senBroadcastRaw(CommandArgs command) {
         Player player = command.getPlayer();
         String[] args = command.getArgs();

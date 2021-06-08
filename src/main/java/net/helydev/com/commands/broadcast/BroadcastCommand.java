@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 public class BroadcastCommand {
 
-    @Command(name = "broadcast", permission = "core.command.broadcast", inGameOnly = true, aliases = {"bc"})
+    @Command(name = "broadcast", permission = "core.command.broadcast", inGameOnly = false, aliases = {"bc"})
     public void sendBroadcast(CommandArgs command) {
         Player player = command.getPlayer();
         String[] args = command.getArgs();

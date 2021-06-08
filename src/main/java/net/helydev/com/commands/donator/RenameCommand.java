@@ -1,6 +1,7 @@
 package net.helydev.com.commands.donator;
 
 import net.helydev.com.utils.Color;
+import net.helydev.com.utils.Cooldowns;
 import net.helydev.com.utils.commands.Command;
 import net.helydev.com.utils.commands.CommandArgs;
 import net.helydev.com.xCore;
@@ -14,6 +15,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
+
+import static net.helydev.com.xCore.getPlugin;
 
 public class RenameCommand {
 
@@ -35,6 +38,10 @@ public class RenameCommand {
             sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("rename.not-holding")));
             return true;
         }
+        if (Cooldowns.isOnCooldown("rename", sender)) {
+            sender.sendMessage(Color.translate(getPlugin().getMessageconfig().getConfiguration().getString("rename.cooldown")));
+            return true;
+        }
         ItemMeta meta = stack.getItemMeta();
         String oldName = meta.getDisplayName();
         if (oldName != null) {
@@ -43,6 +50,8 @@ public class RenameCommand {
         String newName = args[0].equalsIgnoreCase("none") || args[0].equalsIgnoreCase("null") ? null : ChatColor.translateAlternateColorCodes('&', StringUtils.join(args, ' ', 0, args.length));
         if (oldName != null && oldName.equals(newName)) {
             sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("rename.already-named")));
+            Cooldowns.createCooldown("rename");
+            Cooldowns.addCooldown("rename", sender, 60);
             return true;
         }
         if (xCore.getPlugin().getConfig().getBoolean("rename-command.swords-only")) {
@@ -63,6 +72,8 @@ public class RenameCommand {
                         sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("rename.not-allowed")));
                         if (xCore.getPlugin().getConfig().getBoolean("rename-command.warn")) {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), xCore.getPlugin().getConfig().getString("rename-command.warn-command"));
+                            Cooldowns.createCooldown("rename");
+                            Cooldowns.addCooldown("rename", sender, 60);
                             return true;
                         }
                     }
@@ -74,10 +85,15 @@ public class RenameCommand {
         if (newName == null) {
             assert oldName != null;
             sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("rename.removed-name").replace("%name%", oldName)));
+            Cooldowns.createCooldown("rename");
+            Cooldowns.addCooldown("rename", sender, 60);
             return true;
         }
         sender.updateInventory();
+        Cooldowns.createCooldown("rename");
+        Cooldowns.addCooldown("rename", sender, 60);
         sender.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("rename.renamed")));
+
         return true;
     }
 
