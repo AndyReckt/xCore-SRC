@@ -229,7 +229,7 @@ vouchers: # This system can be disabled in the systems settings config.
       sound-name: "CAT_MEOW" # The name of the sound you want to be played, when you open the voucher.
     permissions:
       enabled: true # Do you want to enable permissions? If "true", it will make it so only players with the permission below can open the voucher.
-      commands: true # This will execute commands if they dont have permissions.
+      commands-enabled: true # This will execute commands if they dont have permissions.
       send-message: true # If "true", this will send a message to the player saying they dont have permissions to use this voucher.
       permission: "core.voucher.HelyRank" # The permission to open the voucher. Only works if set to "true" above.
       commands: # The commands executed if they dont have permissions.
