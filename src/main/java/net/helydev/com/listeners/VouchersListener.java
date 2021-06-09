@@ -54,8 +54,14 @@ public class VouchersListener implements Listener {
             for (final String str2 : message) {
                 player.sendMessage(CC.translate(str2));
             }
+
+            ///////////////////////////////////////// LISTENERS /////////////////////////////////////////////////////
+            //Plays a sound when a player opens a voucher.
             if (xCore.getPlugin().getConfig().getBoolean("vouchers." + vouchItem + ".sound.enabled")) {
                 player.playSound(player.getLocation(), Sound.valueOf(xCore.getPlugin().getConfig().getString("vouchers." + vouchItem + ".sound.sound-name").toUpperCase()), 1.0F, 1.0F);
+            }
+            //Plays a particle effect around the player.
+            if (xCore.getPlugin().getConfig().getBoolean("vouchers." + vouchItem + ".particles.enabled")) {
                 player.playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 0);
             }
             //Checks if it limits for people with specified permission.
@@ -66,13 +72,14 @@ public class VouchersListener implements Listener {
                         return;
                     }
             }
-
+            //Executes no permissions commands if you do not have permissions to use a voucher.
             if (xCore.getPlugin().getConfig().getBoolean("vouchers." + vouchItem + ".permissions.commands-enabled")) {
                 if (!player.hasPermission(xCore.getPlugin().getConfig().getString("vouchers." + vouchItem + ".permissions.permission")))
                     for (final String str : nopermcommands) {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), str.replace("%player%", player.getName()));
                     }
             }
+            ///////////////////////////////////////// LISTENERS /////////////////////////////////////////////////////
             player.updateInventory();
         }
     }
