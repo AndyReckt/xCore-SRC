@@ -117,20 +117,25 @@ hub-command:
 
 #####################################################################################
 
-potion-refill-sign:
-  enabled: true
-
-  sound: true
-  sound-name: "CHEST_OPEN"
-
-  title: "Potion Refill:" # The title of the menu.
-
-  line-1: ""
-  line-2: "&b&lFree"
-  line-3: "&b&lPotions"
-  line-4: ""
-
-  permission-create: "core.refill.create" # The permission required to create the sign.
+signs:
+  menu:
+    refill:
+      title: "&b&lPotion Refiller"
+  refill:
+    enabled: true # Do you want to enable Refill Signs?
+    particles: true # Do you want to play particles at the player when they open the menu?
+    size: 54 # The size of the inventory.
+    sounds:
+      enabled: true # Do you want to enable this system?
+      sound: "CAT_MEOW" # The name of the sound.
+    cooldown:
+      enabled: true # Do you want to enable this sytem?
+      time: 3 # The time in minutes you want the cooldown to be for.
+    lines:
+      1: ""
+      2: "&b* Free *"
+      3: "&dPotions"
+      4: ""
 
 #####################################################################################
 
@@ -204,37 +209,5 @@ rename-command:
 clear-lag:
   enabled: true # Do you want to enable this system?
   message: "&a&l[!] &a&n%total% entities&a has just been removed."
-
-#####################################################################################
-
-vouchers: # This system can be disabled in the systems settings config.
-  HelyRank:
-    item: "PAPER"
-    item-data: 0
-    name: "&6Hely Rank &7(Right-Click)"
-    lores: # Available Placeholders: %d_arrow%
-      - "&6Hely Rank:"
-      - "&7You have been rewarded with this rank."
-      - "&7You can right-click this &7&nvoucher&7 to"
-      - "&7redeem your perks!"
-      - ""
-      - "&6&nstore.helydev.com"
-    commands:
-      - "bcraw &8[&4&lAlert&8] &a%player% &7has just opened a &6Hely Rank &7voucher!"
-      - "pex user %player% group set Hely"
-    opened:
-      - "&b&l[!] &aYou have just opened your &6Hely Rank &avoucher."
-    particles:
-      enabled: true # Do you want to enable particle effects when they open a voucher?
-    sound:
-      enabled: true # Do you want to enable this?
-      sound-name: "CAT_MEOW" # The name of the sound you want to be played, when you open the voucher.
-    permissions:
-      enabled: true # Do you want to enable permissions? If "true", it will make it so only players with the permission below can open the voucher.
-      commands-enabled: true # This will execute commands if they dont have permissions.
-      send-message: true # If "true", this will send a message to the player saying they dont have permissions to use this voucher.
-      permission: "core.voucher.HelyRank" # The permission to open the voucher. Only works if set to "true" above.
-      commands: # The commands executed if they dont have permissions.
-        - "bcraw No permissions."
 
 #####################################################################################

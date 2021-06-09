@@ -1,0 +1,267 @@
+signs:
+  refill:
+    contents:
+      '1':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 8226
+      '2':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 8226
+      '3':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 8226
+      '4':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '5':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '6':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '7':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '8':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '9':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '10':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 8226
+      '11':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 8226
+      '12':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 8226
+      '13':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '14':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '15':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '16':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '17':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '18':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '19':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 8226
+      '20':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 8226
+      '21':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 8226
+      '22':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '23':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '24':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '25':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '26':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '27':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '28':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: GOLD_SWORD
+      '29':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: GOLD_SWORD
+      '30':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: ENDER_PEARL
+          amount: 16
+      '31':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '32':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '33':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '34':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '35':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '36':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '37':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: GOLD_SWORD
+      '38':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: GOLD_SWORD
+      '39':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: ENDER_PEARL
+          amount: 16
+      '40':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '41':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '42':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '43':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '44':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 8259
+      '45':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: BAKED_POTATO
+          amount: 64
+      '46':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: GOLD_SWORD
+      '47':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: GOLD_SWORD
+      '48':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: ENDER_PEARL
+          amount: 16
+      '49':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '50':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '51':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '52':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 16421
+      '53':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: POTION
+          damage: 8259
+      '54':
+        item:
+          ==: org.bukkit.inventory.ItemStack
+          type: COOKED_BEEF
+          amount: 64
