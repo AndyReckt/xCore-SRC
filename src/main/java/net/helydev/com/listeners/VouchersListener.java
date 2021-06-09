@@ -40,6 +40,7 @@ public class VouchersListener implements Listener {
             if (!player.getPlayer().getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(CC.translate(xCore.getPlugin().getConfig().getString("vouchers." + vouchItem + ".name")))) {
                 continue;
             }
+            final List<String> nopermcommands = xCore.getPlugin().getConfig().getStringList("vouchers." + vouchItem + ".permissions.commands");
             final List<String> commands = xCore.getPlugin().getConfig().getStringList("vouchers." + vouchItem + ".commands");
             for (final String str : commands) {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), str.replace("%player%", player.getName()));
@@ -60,8 +61,17 @@ public class VouchersListener implements Listener {
             //Checks if it limits for people with specified permission.
             if (xCore.getPlugin().getConfig().getBoolean("vouchers." + vouchItem + ".permissions.enabled")) {
                 if (!player.hasPermission(xCore.getPlugin().getConfig().getString("vouchers." + vouchItem + ".permissions.permission")))
-                    player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("vouchers.no-permissions")));
-                    return;
+                    if (xCore.getPlugin().getConfig().getBoolean("vouchers." + vouchItem + ".permissions.send-message")) {
+                        player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("vouchers.no-permissions")));
+                        return;
+                    }
+            }
+
+            if (xCore.getPlugin().getConfig().getBoolean("vouchers." + vouchItem + ".permissions.commands")) {
+                if (!player.hasPermission(xCore.getPlugin().getConfig().getString("vouchers." + vouchItem + ".permissions.permission")))
+                    for (final String str : nopermcommands) {
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), str.replace("%player%", player.getName()));
+                    }
             }
             player.updateInventory();
         }
