@@ -52,7 +52,7 @@ public class VouchersCommand {
                     else {
                         int j = 0;
                         int h = 0;
-                        for (final String Voucher : xCore.getPlugin().getConfig().getConfigurationSection("vouchers").getKeys(false)) {
+                        for (final String Voucher : xCore.getPlugin().getVoucherConfig().getConfiguration().getConfigurationSection("vouchers").getKeys(false)) {
                             ++j;
                             if (!Voucher.equals(args[3])) {
                                 ++h;
@@ -93,7 +93,7 @@ public class VouchersCommand {
                 }
                 int i = 0;
                 int h2 = 0;
-                for (final String Voucher2 : xCore.getPlugin().getConfig().getConfigurationSection("vouchers").getKeys(false)) {
+                for (final String Voucher2 : xCore.getPlugin().getVoucherConfig().getConfiguration().getConfigurationSection("vouchers").getKeys(false)) {
                     ++i;
                     if (!Voucher2.equals(args[2])) {
                         ++h2;
@@ -113,11 +113,11 @@ public class VouchersCommand {
     }
 
     private void giveVoucherItem(final Player player, final int amount, final String vouchName) {
-        final ItemStack stack = new ItemStack(Material.valueOf(xCore.getPlugin().getConfig().getString("vouchers." + vouchName + ".item")), amount, (short)xCore.getPlugin().getConfig().getInt("vouchers." + vouchName + ".item-data"));
+        final ItemStack stack = new ItemStack(Material.valueOf(xCore.getPlugin().getVoucherConfig().getConfiguration().getString("vouchers." + vouchName + ".item")), amount, (short)xCore.getPlugin().getConfig().getInt("vouchers." + vouchName + ".item-data"));
         final ItemMeta meta = stack.getItemMeta();
-        meta.setDisplayName(CC.translate(xCore.getPlugin().getConfig().getString("vouchers." + vouchName + ".name")));
+        meta.setDisplayName(CC.translate(xCore.getPlugin().getVoucherConfig().getConfiguration().getString("vouchers." + vouchName + ".name")));
         final List<String> lore = new ArrayList<>();
-        for (final String string : xCore.getPlugin().getConfig().getStringList("vouchers." + vouchName + ".lores")) {
+        for (final String string : xCore.getPlugin().getVoucherConfig().getConfiguration().getStringList("vouchers." + vouchName + ".lores")) {
             lore.add(CC.translate(string));
         }
         meta.setLore(lore);
