@@ -43,6 +43,7 @@ public class xCore extends JavaPlugin {
     public static List<KillStreaks> killStreaks = new ArrayList<>();
 
     private Config message;
+    private Config signs;
     private Config voucherConfig;
     private PotRefillSignListener PerkMenuListener;
 
@@ -77,6 +78,7 @@ public class xCore extends JavaPlugin {
         xCore.getPlugin().saveDefaultConfig();
         xCore.getPlugin().reloadConfig();
         xCore.getPlugin().registervouchers();
+        xCore.getPlugin().registersigns();
         xCore.getPlugin().registerconfig();
         xCore.getPlugin().registermanagers();
         xCore.getPlugin().registerCommand();
@@ -119,6 +121,10 @@ public class xCore extends JavaPlugin {
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aRegistering &a&lmessages.yml&a..");
     }
 
+    public void registersigns() {
+        this.signs=new Config(xCore.getPlugin(), "signs", xCore.getPlugin().getDataFolder().getAbsolutePath());
+    }
+
     public void registervouchers() {
         this.voucherConfig=new Config(xCore.getPlugin(), "vouchers", xCore.getPlugin().getDataFolder().getAbsolutePath());
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aRegistering &a&lvouchers.yml&a..");
@@ -159,6 +165,9 @@ public class xCore extends JavaPlugin {
         }
         if (xCore.getPlugin().getConfig().getBoolean("clear-lag.enabled")) {
             commandFramework.registerCommands(new ClearlagCommand());
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("signs.refill.enabled")) {
+            commandFramework.registerCommands(new RefillEditCommand());
         }
         if (xCore.getPlugin().getConfig().getBoolean("commands.TeleportPositionCommand")) {
             commandFramework.registerCommands(new TeleportPositionCommand());
@@ -339,6 +348,9 @@ public class xCore extends JavaPlugin {
         if (xCore.getPlugin().getConfig().getBoolean("settings.server.voucher-system")) {
             manager.registerEvents(new VouchersListener(), this);
         }
+        if (xCore.getPlugin().getConfig().getBoolean("signs.refill.enabled")) {
+            manager.registerEvents(new PotRefillSignListener(), this);
+        }
         if (xCore.getPlugin().getConfig().getBoolean("settings.server.ghost-block-fixer")) {
             manager.registerEvents(new GhostBlockFixListener(), this);
         }
@@ -378,8 +390,11 @@ public class xCore extends JavaPlugin {
         if (xCore.getPlugin().getConfig().getBoolean("settings.server.mob-stack.enabled")) {
             manager.registerEvents(new MobstackListener(), this);
         }
-        if (xCore.getPlugin().getConfig().getBoolean("potion-refill-sign.enabled")) {
+        if (xCore.getPlugin().getConfig().getBoolean("signs.refill.enabled")) {
             manager.registerEvents(new PotRefillSignListener(), this);
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("signs.refill.enabled")) {
+            manager.registerEvents(new RefillEditListener(), this);
         }
         if (xCore.getPlugin().getConfig().getBoolean("beacon-rename.enabled")) {
             manager.registerEvents(new BeaconRenamerListener(), this);
@@ -396,6 +411,7 @@ public class xCore extends JavaPlugin {
     public void reload(){
         this.reloadConfig();
         this.message.reload();
+        this.signs.reload();
         this.voucherConfig.reload();
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aNOTICE: A player has just reloaded the config from ingame!");
     }
@@ -424,5 +440,8 @@ public class xCore extends JavaPlugin {
 
     public Config getVoucherConfig() {
         return this.voucherConfig;
+    }
+    public Config getSignsConfig() {
+        return this.signs;
     }
 }
