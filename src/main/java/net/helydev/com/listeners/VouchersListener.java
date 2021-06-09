@@ -67,7 +67,7 @@ public class VouchersListener implements Listener {
                     }
             }
 
-            if (xCore.getPlugin().getConfig().getBoolean("vouchers." + vouchItem + ".permissions.commands")) {
+            if (xCore.getPlugin().getConfig().getBoolean("vouchers." + vouchItem + ".permissions.commands-enabled")) {
                 if (!player.hasPermission(xCore.getPlugin().getConfig().getString("vouchers." + vouchItem + ".permissions.permission")))
                     for (final String str : nopermcommands) {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), str.replace("%player%", player.getName()));
