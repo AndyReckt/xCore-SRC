@@ -1,0 +1,41 @@
+##########################################################
+#                   ORIGINAL AUTHOR                      #
+#                     LEANDROSSJ                         #
+#                                                        #
+#                  SKIDDED BY ANDREW                     #
+#                 MAKER OF VERSION V2                    #
+#                                                        #
+#                 discord.helydev.com                    #
+##########################################################
+
+vouchers: # This system can be disabled in the systems settings config.
+  HelyRank:
+    item: "PAPER"
+    item-data: 0
+    name: "&6Hely Rank &7(Right-Click)"
+    lores: # Available Placeholders: %d_arrow%
+      - "&6Hely Rank:"
+      - "&7You have been rewarded with this rank."
+      - "&7You can right-click this &7&nvoucher&7 to"
+      - "&7redeem your perks!"
+      - ""
+      - "&6&nstore.helydev.com"
+    commands:
+      - "bcraw &8[&4&lAlert&8] &a%player% &7has just opened a &6Hely Rank &7voucher!"
+      - "pex user %player% group set Hely"
+    opened:
+      - "&b&l[!] &aYou have just opened your &6Hely Rank &avoucher."
+    particles:
+      enabled: true # Do you want to enable particle effects when they open a voucher?
+    sound:
+      enabled: true # Do you want to enable this?
+      sound-name: "CAT_MEOW" # The name of the sound you want to be played, when you open the voucher.
+    permissions:
+      enabled: true # Do you want to enable permissions? If "true", it will make it so only players with the permission below can open the voucher.
+      commands-enabled: true # This will execute commands if they dont have permissions.
+      send-message: true # If "true", this will send a message to the player saying they dont have permissions to use this voucher.
+      permission: "core.voucher.HelyRank" # The permission to open the voucher. Only works if set to "true" above.
+      commands: # The commands executed if they dont have permissions.
+        - "bcraw No permissions."
+
+##########################################################
