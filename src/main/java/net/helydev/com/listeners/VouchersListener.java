@@ -1,6 +1,7 @@
 package net.helydev.com.listeners;
 
 import net.helydev.com.utils.CC;
+import net.helydev.com.utils.Color;
 import net.helydev.com.xCore;
 import org.bukkit.Bukkit;
 import org.bukkit.Effect;
@@ -55,6 +56,12 @@ public class VouchersListener implements Listener {
             if (xCore.getPlugin().getConfig().getBoolean("vouchers." + vouchItem + ".sound.enabled")) {
                 player.playSound(player.getLocation(), Sound.valueOf(xCore.getPlugin().getConfig().getString("vouchers." + vouchItem + ".sound.sound-name").toUpperCase()), 1.0F, 1.0F);
                 player.playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 0);
+            }
+            //Checks if it limits for people with specified permission.
+            if (xCore.getPlugin().getConfig().getBoolean("vouchers." + vouchItem + ".permissions.enabled")) {
+                if (!player.hasPermission(xCore.getPlugin().getConfig().getString("vouchers." + vouchItem + ".permissions.permission")))
+                    player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("vouchers.no-permissions")));
+                    return;
             }
             player.updateInventory();
         }
