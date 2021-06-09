@@ -224,6 +224,8 @@ vouchers: # This system can be disabled in the systems settings config.
       - "pex user %player% group set Hely"
     opened:
       - "&b&l[!] &aYou have just opened your &6Hely Rank &avoucher."
+    particles:
+      enabled: true # Do you want to enable particle effects when they open a voucher?
     sound:
       enabled: true # Do you want to enable this?
       sound-name: "CAT_MEOW" # The name of the sound you want to be played, when you open the voucher.
