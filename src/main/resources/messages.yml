@@ -91,6 +91,7 @@ vouchers:
   not-positive: "&cYour number must be positive."
   max: "&cYou can only give a max of 64 vouchers at a time."
   not-exist: "&cSorry, this voucher does not exist."
+  no-permission: "&cYou do not have permission to open this voucher."
 
 help:
   help-command:
