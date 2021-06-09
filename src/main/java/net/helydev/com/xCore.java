@@ -43,6 +43,7 @@ public class xCore extends JavaPlugin {
     public static List<KillStreaks> killStreaks = new ArrayList<>();
 
     private Config message;
+    private Config voucherConfig;
     private PotRefillSignListener PerkMenuListener;
 
     public static xCore getPlugin() {
@@ -75,6 +76,7 @@ public class xCore extends JavaPlugin {
         //END OF LOADING MESSAGE
         xCore.getPlugin().saveDefaultConfig();
         xCore.getPlugin().reloadConfig();
+        xCore.getPlugin().registervouchers();
         xCore.getPlugin().registerconfig();
         xCore.getPlugin().registermanagers();
         xCore.getPlugin().registerCommand();
@@ -115,6 +117,11 @@ public class xCore extends JavaPlugin {
         this.message=new Config(xCore.getPlugin(), "messages", xCore.getPlugin().getDataFolder().getAbsolutePath());
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aRegistering &a&lconfig.yml&a..");
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aRegistering &a&lmessages.yml&a..");
+    }
+
+    public void registervouchers() {
+        this.voucherConfig=new Config(xCore.getPlugin(), "vouchers", xCore.getPlugin().getDataFolder().getAbsolutePath());
+        ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aRegistering &a&lvouchers.yml&a..");
     }
 
     /**
@@ -389,6 +396,7 @@ public class xCore extends JavaPlugin {
     public void reload(){
         this.reloadConfig();
         this.message.reload();
+        this.voucherConfig.reload();
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aNOTICE: A player has just reloaded the config from ingame!");
     }
 
@@ -412,5 +420,9 @@ public class xCore extends JavaPlugin {
                 xCore.this.onClear();
             }
         }, 4200L);
+    }
+
+    public Config getVoucherConfig() {
+        return this.voucherConfig;
     }
 }
