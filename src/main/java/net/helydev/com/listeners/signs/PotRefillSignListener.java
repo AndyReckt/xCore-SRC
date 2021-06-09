@@ -1,73 +1,60 @@
 package net.helydev.com.listeners.signs;
 
+import net.helydev.com.utils.CC;
 import net.helydev.com.utils.Color;
 import net.helydev.com.xCore;
+import net.minecraft.util.gnu.trove.map.TObjectLongMap;
+import net.minecraft.util.gnu.trove.map.hash.TObjectLongHashMap;
+import net.minecraft.util.org.apache.commons.lang3.time.DurationFormatUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Effect;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Objects;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
-public class PotRefillSignListener implements Listener {
-    private String[] lines;
-    private String[] error;
+public class PotRefillSignListener implements Listener
+{
+    private final String[] lines;
+    private final String[] error;
+    private static long BEACON_COOLDOWN_DELAY;
+    public static TObjectLongMap<UUID> BEACON_COOLDOWN;
 
     public PotRefillSignListener() {
+        this.lines = new String[] { Color.translate(xCore.getPlugin().getConfig().getString("signs.refill.lines.1")), Color.translate(xCore.getPlugin().getConfig().getString("signs.refill.lines.2")), Color.translate(xCore.getPlugin().getConfig().getString("signs.refill.lines.3")), Color.translate(xCore.getPlugin().getConfig().getString("signs.refill.lines.4")) };
+        this.error = new String[] { Color.translate(xCore.getPlugin().getConfig().getString("signs.refill.lines.1")), Color.translate(xCore.getPlugin().getConfig().getString("signs.refill.lines.2")), Color.translate(xCore.getPlugin().getConfig().getString("signs.refill.lines.3")), Color.translate("&cError") };
     }
 
-    public PotRefillSignListener(final xCore plugin) {
-        final String[] lines = new String[]{Color.translate(xCore.getPlugin().getConfig().getString("potion-refill-sign.line-1")), Color.translate(xCore.getPlugin().getConfig().getString("potion-refill-sign.line-2")), Color.translate(xCore.getPlugin().getConfig().getString("potion-refill-sign.line-3")), Color.translate(xCore.getPlugin().getConfig().getString("potion-refill-sign.line-4"))};
-        final String[] error = new String[]{Color.translate(xCore.getPlugin().getConfig().getString("potion-refill-sign.line-1")), Color.translate(xCore.getPlugin().getConfig().getString("potion-refill-sign.line-2")), Color.translate(xCore.getPlugin().getConfig().getString("potion-refill-sign.line-3")), Color.translate(xCore.getPlugin().getConfig().getString("potion-refill-sign.line-4"))};
-    }
-
-    public Inventory openMainInventory(final Player player) {
-        final Inventory inv = Bukkit.createInventory((InventoryHolder)null, 54, xCore.getPlugin().getConfig().getString("potion-refill-sign.title"));
-        inv.setItem(36, new ItemStack(Material.POTION, 1, (short)8259));
-        inv.setItem(37, new ItemStack(Material.POTION, 1, (short)8259));
-        inv.setItem(38, new ItemStack(Material.POTION, 1, (short)8259));
-        inv.setItem(39, new ItemStack(Material.POTION, 1, (short)8259));
-        inv.setItem(40, new ItemStack(Material.ENDER_PEARL, 16));
-        inv.setItem(41, new ItemStack(Material.POTION, 1, (short)8226));
-        inv.setItem(42, new ItemStack(Material.POTION, 1, (short)8226));
-        inv.setItem(43, new ItemStack(Material.POTION, 1, (short)8226));
-        inv.setItem(44, new ItemStack(Material.POTION, 1, (short)8226));
-        inv.setItem(18, new ItemStack(Material.POTION, 1, (short)16421));
-        inv.setItem(29, new ItemStack(Material.POTION, 1, (short)16421));
-        final ItemStack goldsword = new ItemStack(Material.GOLD_SWORD, 1);
-        final ItemStack healpot = new ItemStack(Material.POTION, 1, (short)16421);
-        for (int in1 = 0; in1 < 9; ++in1) {
-            inv.setItem(in1, healpot);
-        }
-        for (int in1 = 9; in1 < 18; ++in1) {
-            inv.setItem(in1, healpot);
-        }
-        for (int in1 = 19; in1 < 29; ++in1) {
-            inv.setItem(in1, healpot);
-        }
-        for (int in1 = 30; in1 < 36; ++in1) {
-            inv.setItem(in1, healpot);
-        }
-        for (int in1 = 45; in1 < 54; ++in1) {
-            inv.setItem(in1, goldsword);
+    public void openMainInventory(final Player player) {
+        final Inventory inv = Bukkit.createInventory(null, xCore.getPlugin().getConfig().getInt("signs.refill.size"), CC.translate(xCore.getPlugin().getConfig().getString("signs.menu.refill.title")));
+        int var4 = 0;
+        for (final String var6 : xCore.getPlugin().getSignsConfig().getConfiguration().getConfigurationSection("signs.refill.contents").getKeys(false)) {
+            ++var4;
+            final ItemStack var7 = xCore.getPlugin().getSignsConfig().getConfiguration().getItemStack("signs.refill.contents." + var6 + ".item");
+            if (var7 != null && !var7.getType().equals(Material.AIR)) {
+                inv.setItem(var4 - 1, var7);
+            }
         }
         player.openInventory(inv);
-        return inv;
     }
 
-        public void onSignPlace(final SignChangeEvent event) {
+    @EventHandler
+    public void onSignPlace(final SignChangeEvent event) {
         if (event.getLine(0).equals("[Refill]")) {
             final Player player = event.getPlayer();
-            if (player.hasPermission("core.sign.create")) {
+            if (player.hasPermission("core.comamnd.*")) {
                 for (int i = 0; i < this.lines.length; ++i) {
                     event.setLine(i, this.lines[i]);
                 }
@@ -80,21 +67,44 @@ public class PotRefillSignListener implements Listener {
         }
     }
 
-    public void onPlayerInteract(final PlayerInteractEvent event) {
+    @EventHandler(priority = EventPriority.HIGH)
+    public boolean onPlayerInteract(final PlayerInteractEvent event) {
         final Player player = event.getPlayer();
         final Block block = event.getClickedBlock();
-        if ((event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_BLOCK) && block.getState() instanceof Sign) {
+        if (event.getAction() == Action.RIGHT_CLICK_BLOCK && block.getState() instanceof Sign) {
             final Sign sign = (Sign)block.getState();
-            for (int i = 0; i < Objects.requireNonNull(this.lines).length; ++i) {
+            for (int i = 0; i < this.lines.length; ++i) {
                 if (!sign.getLine(i).equals(this.lines[i])) {
-                    return;
+                    return false;
                 }
             }
-            this.openMainInventory(player);
-            player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("refill-sign.used")));
-            if (xCore.getPlugin().getConfig().getBoolean("potion-refill-sign.sound")) {
-                player.playSound(player.getLocation(), Sound.valueOf(xCore.getPlugin().getConfig().getString("potion-refill-sign.sound-name").toUpperCase()), 1.0F, 1.0F);
+            final UUID uuid = player.getUniqueId();
+            final long timestamp = PotRefillSignListener.BEACON_COOLDOWN.get(uuid);
+            final long millis = System.currentTimeMillis();
+            final long remaining = (timestamp == PotRefillSignListener.BEACON_COOLDOWN.getNoEntryValue()) ? -1L : (timestamp - millis);
+            if (remaining > 0L) {
+                player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("refill-sign.cooldown").replace("%time%", DurationFormatUtils.formatDurationWords(remaining, true, true))));
+                return false;
+            }
+            if (xCore.getPlugin().getConfig().getBoolean("signs.refill.enabled")) {
+                PotRefillSignListener.BEACON_COOLDOWN.put(player.getUniqueId(), System.currentTimeMillis() + PotRefillSignListener.BEACON_COOLDOWN_DELAY);
+                this.openMainInventory(player);
+            }
+
+            //Plays a sound when a player opens a voucher.
+            if (xCore.getPlugin().getVoucherConfig().getConfiguration().getBoolean("signs.refill.sounds.enabled")) {
+                player.playSound(player.getLocation(), Sound.valueOf(xCore.getPlugin().getVoucherConfig().getConfiguration().getString("signs.refill.sounds.sound").toUpperCase()), 1.0F, 1.0F);
+            }
+            //Plays a particle effect around the player.
+            if (xCore.getPlugin().getVoucherConfig().getConfiguration().getBoolean("signs.refill.particles")) {
+                player.playEffect(player.getLocation(), Effect.MOBSPAWNER_FLAMES, 0);
             }
         }
+        return false;
+    }
+
+    static {
+        PotRefillSignListener.BEACON_COOLDOWN_DELAY = TimeUnit.MINUTES.toMillis(xCore.getPlugin().getConfig().getInt("signs.refill.cooldown.time"));
+        PotRefillSignListener.BEACON_COOLDOWN = new TObjectLongHashMap<>();
     }
 }
