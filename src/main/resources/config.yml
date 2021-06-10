@@ -117,47 +117,6 @@ hub-command:
 
 #####################################################################################
 
-signs:
-  menu:
-    refill:
-      title: "&b&lPotion Refiller"
-    disposal:
-      title: "&4&lGarbage Can"
-  refill:
-    enabled: true # Do you want to enable Refill Signs?
-    particles: true # Do you want to play particles at the player when they open the menu?
-    size: 54 # The size of the inventory.
-    sounds:
-      enabled: true # Do you want to enable this system?
-      sound: "CAT_MEOW" # The name of the sound.
-    cooldown:
-      enabled: true # Do you want to enable this sytem?
-      time: 3 # The time in minutes you want the cooldown to be for.
-    lines:
-      1: ""
-      2: "&b* Free *"
-      3: "&dPotions"
-      4: ""
-  disposal:
-    enabled: true # Do you want to enable Disposal signs?
-    size: 36 # The size of the inventory.
-    lines:
-      1: ""
-      2: "&4Trash"
-      3: "&4Can"
-      4: ""
-  clear-inventory:
-    enabled: true # Do you want to enable Clear Inventory signs?
-    lines:
-      1: ""
-      2: "&aClear"
-      3: "&aInventory"
-      4: ""
-    messages:
-      cleared: "&a&l[!] &aYou have just cleared all your items from your inventory."
-
-#####################################################################################
-
 join-sound:
   enabled: true
 
