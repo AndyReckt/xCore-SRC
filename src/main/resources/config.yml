@@ -69,20 +69,7 @@ commands: # If you want the command to be enabled, it needs to be true, if you w
 
 settings:
   server: # Server Events
-    mob-stack:
-      enabled: true # Do you want to enable the mob stacker?
-      entity: # This is the list of entities you would like to be stacked.
-        - "ZOMBIE"
-        - "SKELETON"
-        - "SPIDER"
-        - "CAVE_SPIDER"
-        - "COW"
-        - "PIG"
-        - "SHEEP"
-        - "CHICKEN"
-        - "HORSE"
-        - "BLAZE"
-    anvil-repairer: true # Do you want to enable the Anvil Repairer?
+    timezone: "EST" # What timezone is your server in?
     voucher-system: true # Do you want to enable the voucher system?
     anti-dropdown: true # Do you want to disable people from placing doors below a certain Y level?
     ghost-block-fixer: true # Do you want to fix people from creating Ghost Blocks?
@@ -109,6 +96,19 @@ settings:
       invalid-usage: "&cPlease either use 'Up' or 'Down'!"
       cannot-find: "&cWe cannot find a sign to teleport you to."
       blocked: "&cSorry, the sign you are trying to use is currently blocked by a block."
+  mob-stack:
+    enabled: true # Do you want to enable the mob stacker?
+    entity: # This is the list of entities you would like to be stacked.
+      - "ZOMBIE"
+      - "SKELETON"
+      - "SPIDER"
+      - "CAVE_SPIDER"
+      - "COW"
+      - "PIG"
+      - "SHEEP"
+      - "CHICKEN"
+      - "HORSE"
+      - "BLAZE"
 
 #####################################################################################
 
@@ -121,6 +121,8 @@ signs:
   menu:
     refill:
       title: "&b&lPotion Refiller"
+    disposal:
+      title: "&4&lGarbage Can"
   refill:
     enabled: true # Do you want to enable Refill Signs?
     particles: true # Do you want to play particles at the player when they open the menu?
@@ -136,6 +138,23 @@ signs:
       2: "&b* Free *"
       3: "&dPotions"
       4: ""
+  disposal:
+    enabled: true # Do you want to enable Disposal signs?
+    size: 36 # The size of the inventory.
+    lines:
+      1: ""
+      2: "&4Trash"
+      3: "&4Can"
+      4: ""
+  clear-inventory:
+    enabled: true # Do you want to enable Clear Inventory signs?
+    lines:
+      1: ""
+      2: "&aClear"
+      3: "&aInventory"
+      4: ""
+    messages:
+      cleared: "&a&l[!] &aYou have just cleared all your items from your inventory."
 
 #####################################################################################
 
@@ -158,24 +177,6 @@ spawn: # DO NOT EDIT. THIS WILL BREAK YOUR CORE. YOU CAN CHANGE THESE COORDINATE
   z: 0.6617853658512408
   yaw: 0.78689575
   pitch: 11.715501
-
-#####################################################################################
-
-beacon-rename:
-  enabled: true # Do you want to enable this system?
-
-  messages:
-    one: "&aChoosing a random name.."
-    two: "%rename% &8- &fI don't quite like it.."
-    three: "%rename% &8- &fIt could be better..."
-    fourth: "%rename% &8- &fIt can for sure be better.."
-    fifth: "%rename% &8- &aAmazing. This looks perfect."
-    no-sword: "&cYou must have a sword in your hand."
-  name-list:
-    - "&4Hely Development"
-    - "&c&lWE HATE LAUTI"
-    - "&d&lLeandroSSJ <3"
-    - "&7&nGod Player"
 
 #####################################################################################
 

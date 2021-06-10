@@ -28,11 +28,6 @@ report:
 pearl-glitch:
   detected: "&cYour &5Ender Pearl &chas been detected as &c&lPearl Glitching&c. Your &5Ender Pearl &chas been refunded."
 
-anvil-repairer:
-  hold-item: "&cYou must be holding a item that can be repaired."
-  not-damaged: "&cThis item does not need to be repaired."
-  repaired: "&aYou have repaired your item."
-
 helpop:
   usage: "&cCorrect Usage: /helpop <reason>"
   cooldown: "&cYou are still on cooldown."
@@ -358,10 +353,13 @@ world:
   teleported: "&cYou have been teleported to &c&l%world%&c."
 
 refill-sign:
-  used: "&cYou are now viewing the &c&lPotion Refill &cmenu."
+  cooldown: "&cYou are currently on cooldown for &c&l%time%&c."
+
+clear-items-sign:
+  cooldown: "&cYou are currently on cooldown for &c&l%time%&c."
 
 trash-sign:
-  used: "&4You have opened up your &4&lDisposal&4."
+  used: "&4You have just opened up your &4&lDisposal&4."
 
 disguise:
   usage: "&cUsage: /disguise <player> <name>"
