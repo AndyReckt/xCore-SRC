@@ -2,11 +2,9 @@ package net.helydev.com.listeners;
 
 import net.helydev.com.utils.CC;
 import net.helydev.com.utils.Color;
+import net.helydev.com.utils.Cooldowns;
 import net.helydev.com.xCore;
-import org.bukkit.Bukkit;
-import org.bukkit.Effect;
-import org.bukkit.Material;
-import org.bukkit.Sound;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -20,7 +18,8 @@ import java.util.List;
 
 public class VouchersListener implements Listener {
     @EventHandler
-    public void onInteractVouch(final PlayerInteractEvent event) {
+    @Deprecated
+    public boolean onInteractVouch(final PlayerInteractEvent event) {
         final Player player = event.getPlayer();
         for (final String vouchItem : xCore.getPlugin().getVoucherConfig().getConfiguration().getConfigurationSection("vouchers").getKeys(false)) {
             final ItemStack vouchItemStackCustom = new ItemStack(Material.valueOf(xCore.getPlugin().getVoucherConfig().getConfiguration().getString("vouchers." + vouchItem + ".item")), 1, (short) xCore.getPlugin().getVoucherConfig().getConfiguration().getInt("vouchers." + vouchItem + ".item-data"));
@@ -35,7 +34,11 @@ public class VouchersListener implements Listener {
             vouchItemMetaCustom.setLore(lore);
             vouchItemStackCustom.setItemMeta(vouchItemMetaCustom);
             if (player.getItemInHand().getItemMeta() == null || player.getItemInHand() == null || player.getItemInHand().getItemMeta().getDisplayName() == null || player.getItemInHand().getItemMeta().getLore() == null) {
-                return;
+                return false;
+            }
+            if (Cooldowns.isOnCooldown("voucher", player)) {
+                player.sendMessage(ChatColor.RED + "You are still on a cooldown. Please wait before opening another voucher.");
+                return false;
             }
             if (!player.getPlayer().getItemInHand().getItemMeta().getDisplayName().equalsIgnoreCase(CC.translate(xCore.getPlugin().getVoucherConfig().getConfiguration().getString("vouchers." + vouchItem + ".name")))) {
                 continue;
@@ -69,7 +72,7 @@ public class VouchersListener implements Listener {
                 if (!player.hasPermission(xCore.getPlugin().getVoucherConfig().getConfiguration().getString("vouchers." + vouchItem + ".permissions.permission")))
                     if (xCore.getPlugin().getVoucherConfig().getConfiguration().getBoolean("vouchers." + vouchItem + ".permissions.send-message")) {
                         player.sendMessage(Color.translate(xCore.getPlugin().getMessageconfig().getConfiguration().getString("vouchers.no-permissions")));
-                        return;
+                        return false;
                     }
             }
             //Executes no permissions commands if you do not have permissions to use a voucher.
@@ -79,8 +82,13 @@ public class VouchersListener implements Listener {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), str.replace("%player%", player.getName()));
                     }
             }
+
+            //You shitters... do not spam fucking vouchers! - Andrew <3
+            Cooldowns.addCooldown("voucher", player, 60);
+
             ///////////////////////////////////////// LISTENERS /////////////////////////////////////////////////////
             player.updateInventory();
         }
+        return false;
     }
 }
