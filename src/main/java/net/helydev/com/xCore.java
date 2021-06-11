@@ -21,9 +21,8 @@ import net.helydev.com.listeners.elevators.ElevatorSignListener;
 import net.helydev.com.listeners.killstreaks.KillStreaks;
 import net.helydev.com.listeners.killstreaks.KillstreakListener;
 import net.helydev.com.listeners.patches.*;
-import net.helydev.com.listeners.signs.PotRefillSignListener;
-import net.helydev.com.listeners.systems.BeaconRenamerListener;
 import net.helydev.com.utils.Color;
+import net.helydev.com.utils.Cooldowns;
 import net.helydev.com.utils.chat.ChatUtil;
 import net.helydev.com.utils.commands.CommandFramework;
 import org.bukkit.Bukkit;
@@ -43,9 +42,7 @@ public class xCore extends JavaPlugin {
     public static List<KillStreaks> killStreaks = new ArrayList<>();
 
     private Config message;
-    private Config signs;
     private Config voucherConfig;
-    private PotRefillSignListener PerkMenuListener;
 
     public static xCore getPlugin() {
         return plugin;
@@ -75,10 +72,10 @@ public class xCore extends JavaPlugin {
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&a&nhttps://discord.gg/mb7uw7QnAV");
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&7&l&m---------------------------------");
         //END OF LOADING MESSAGE
+        Cooldowns.createCooldown("voucher");
         xCore.getPlugin().saveDefaultConfig();
         xCore.getPlugin().reloadConfig();
         xCore.getPlugin().registervouchers();
-        xCore.getPlugin().registersigns();
         xCore.getPlugin().registerconfig();
         xCore.getPlugin().registermanagers();
         xCore.getPlugin().registerCommand();
@@ -121,10 +118,6 @@ public class xCore extends JavaPlugin {
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aRegistering &a&lmessages.yml&a..");
     }
 
-    public void registersigns() {
-        this.signs=new Config(xCore.getPlugin(), "signs", xCore.getPlugin().getDataFolder().getAbsolutePath());
-    }
-
     public void registervouchers() {
         this.voucherConfig=new Config(xCore.getPlugin(), "vouchers", xCore.getPlugin().getDataFolder().getAbsolutePath());
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aRegistering &a&lvouchers.yml&a..");
@@ -165,9 +158,6 @@ public class xCore extends JavaPlugin {
         }
         if (xCore.getPlugin().getConfig().getBoolean("clear-lag.enabled")) {
             commandFramework.registerCommands(new ClearlagCommand());
-        }
-        if (xCore.getPlugin().getConfig().getBoolean("signs.refill.enabled")) {
-            commandFramework.registerCommands(new RefillEditCommand());
         }
         if (xCore.getPlugin().getConfig().getBoolean("commands.TeleportPositionCommand")) {
             commandFramework.registerCommands(new TeleportPositionCommand());
@@ -316,6 +306,9 @@ public class xCore extends JavaPlugin {
         if (xCore.getPlugin().getConfig().getBoolean("commands.HelpOpCommand")) {
             commandFramework.registerCommands(new HelpOpCommand());
         }
+        if (xCore.getPlugin().getConfig().getBoolean("launch-pads.enabled")) {
+            commandFramework.registerCommands(new LaunchPadCommand());
+        }
         if (xCore.getPlugin().getConfig().getBoolean("commands.ReportCommand")) {
             commandFramework.registerCommands(new ReportCommand());
         }
@@ -342,20 +335,15 @@ public class xCore extends JavaPlugin {
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aRegistering listeners..");
         manager.registerEvents(new CoreListener(), this);
         manager.registerEvents(new BlockGlitchListener(), this);
+        manager.registerEvents(new ElevatorSignListener(), this);
         if (xCore.getPlugin().getConfig().getBoolean("settings.server.kill-tracker")) {
             manager.registerEvents(new KillTrackerListener(), this);
         }
         if (xCore.getPlugin().getConfig().getBoolean("settings.server.voucher-system")) {
             manager.registerEvents(new VouchersListener(), this);
         }
-        if (xCore.getPlugin().getConfig().getBoolean("signs.refill.enabled")) {
-            manager.registerEvents(new PotRefillSignListener(), this);
-        }
         if (xCore.getPlugin().getConfig().getBoolean("settings.server.ghost-block-fixer")) {
             manager.registerEvents(new GhostBlockFixListener(), this);
-        }
-        if (xCore.getPlugin().getConfig().getBoolean("settings.server.anvil-repairer")) {
-            manager.registerEvents(new AnvilRepairerListener(), this);
         }
         if (xCore.getPlugin().getConfig().getBoolean("commands.SkullCommand")) {
             manager.registerEvents(new SkullListener(), this);
@@ -366,15 +354,15 @@ public class xCore extends JavaPlugin {
         if (xCore.getPlugin().getConfig().getBoolean("settings.server.anti-dropdown")) {
             manager.registerEvents(new AntiDropDownListener(), this);
         }
-        if (xCore.getPlugin().getConfig().getBoolean("settings.elevators.enabled")) {
-            manager.registerEvents(new ElevatorSignListener(), this);
-        }
         manager.registerEvents(new WeatherListener(), this);
         if (xCore.getPlugin().getConfig().getBoolean("settings.server.stat-trak")) {
             manager.registerEvents(new StatTrakListener(), this);
         }
         if (xCore.getPlugin().getConfig().getBoolean("settings.void-teleport-fix")) {
             manager.registerEvents(new VoidGlitchFixListener(), this);
+        }
+        if (xCore.getPlugin().getConfig().getBoolean("launch-pads.enabled")) {
+            manager.registerEvents(new LaunchPadListener(), this);
         }
         if (xCore.getPlugin().getConfig().getBoolean("join-sound.enabled")) {
             manager.registerEvents(new JoinEventListener(), this);
@@ -390,15 +378,6 @@ public class xCore extends JavaPlugin {
         if (xCore.getPlugin().getConfig().getBoolean("settings.server.mob-stack.enabled")) {
             manager.registerEvents(new MobstackListener(), this);
         }
-        if (xCore.getPlugin().getConfig().getBoolean("signs.refill.enabled")) {
-            manager.registerEvents(new PotRefillSignListener(), this);
-        }
-        if (xCore.getPlugin().getConfig().getBoolean("signs.refill.enabled")) {
-            manager.registerEvents(new RefillEditListener(), this);
-        }
-        if (xCore.getPlugin().getConfig().getBoolean("beacon-rename.enabled")) {
-            manager.registerEvents(new BeaconRenamerListener(), this);
-        }
         manager.registerEvents(new SplashPotionFixListener(), this);
         manager.registerEvents(new WhitelistListener(), this);
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aRegistered listeners!");
@@ -411,7 +390,6 @@ public class xCore extends JavaPlugin {
     public void reload(){
         this.reloadConfig();
         this.message.reload();
-        this.signs.reload();
         this.voucherConfig.reload();
         ChatUtil.sendMessage(Bukkit.getConsoleSender(),"&b[xCore] &aNOTICE: A player has just reloaded the config from ingame!");
     }
@@ -440,8 +418,5 @@ public class xCore extends JavaPlugin {
 
     public Config getVoucherConfig() {
         return this.voucherConfig;
-    }
-    public Config getSignsConfig() {
-        return this.signs;
     }
 }
