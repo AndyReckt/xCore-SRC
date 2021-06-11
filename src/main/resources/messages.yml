@@ -34,6 +34,16 @@ helpop:
   recieved: "&aAll online staff members have recieved your message."
   alert: "&b[HelpOP] &a%player% &7is requesting help: &a%message%"
 
+launch-pad:
+  usage: "&cCorrect Usage: /launchpad give <player> <amount>"
+  not-online: "&cThat player is not online."
+  max: "&cYou cannot give more than &c&l64x Launch Pads&c."
+  invalid: "&cYou provided a invalid number."
+  cannot-craft: "&cYou cannot craft &d&lLaunch Pads&c."
+  no-permissions: "&cYou do not have permissions to place &d&lLaunch Pads&c."
+  used: "&a&oYou have used a &d&l&oLaunch Pad&a&o."
+  given: "&aYou have given &a&n%player%&a a &d&lLaunch Pad&a."
+
 perks:
   help:
     - ""

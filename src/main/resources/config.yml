@@ -89,13 +89,14 @@ settings:
     hit-detection: 21 # 21 is the default number.
     splash-potion-velocity: 2.0 # 2.0 is the default number.
   elevators:
-    enabled: true # This will enable elevator signs.
-    title: "&9[Elevator]"
-    not-found: true # This will use the other elevator sign system.
-    messages:
-      invalid-usage: "&cPlease either use 'Up' or 'Down'!"
-      cannot-find: "&cWe cannot find a sign to teleport you to."
-      blocked: "&cSorry, the sign you are trying to use is currently blocked by a block."
+    minecart:
+      enabled: true # Do you want to enable minecarts as elevators?
+    signs:
+      enabled: true # Do you want to enable elevator signs?
+      title: "&d[Elevator]"
+      messages:
+        created: "&b[Elevators] &cYou have created a elevator sign."
+        cannot-locate: "&b[Elevators] &cWe cannot find a sign to teleport you to."
   mob-stack:
     enabled: true # Do you want to enable the mob stacker?
     entity: # This is the list of entities you would like to be stacked.
@@ -171,3 +172,10 @@ clear-lag:
   message: "&a&l[!] &a&n%total% entities&a has just been removed."
 
 #####################################################################################
+
+launch-pads:
+  enabled: true # Do you want to enable launch pads?
+  sound:
+    enabled: true # Do you want to enable sounds?
+    name: "CAT_MEOW" # The name of the sound.
+  particle: true # Do you want to play particles?
