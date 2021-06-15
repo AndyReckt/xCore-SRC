@@ -7,9 +7,9 @@ public class NumberUtils
             Integer.parseInt(value);
         }
         catch (NumberFormatException e) {
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }
 

@@ -70,5 +70,4 @@ public final class BukkitUtils {
     public static List<String> getCompletions(final String[] args, final List<String> input, int i) {
         return getCompletions(args, input, 80);
     }
-
 }

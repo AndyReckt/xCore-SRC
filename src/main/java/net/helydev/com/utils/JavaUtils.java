@@ -21,7 +21,8 @@ public final class JavaUtils {
     public static Integer tryParseInt(final String string) {
         try {
             return Integer.parseInt(string);
-        } catch (IllegalArgumentException ex) {
+        }
+        catch (IllegalArgumentException ex) {
             return null;
         }
     }
